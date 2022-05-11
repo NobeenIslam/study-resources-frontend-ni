@@ -1,24 +1,24 @@
+import { useEffect, useState } from "react"
+import { ResourceInfo } from "./Interfaces"
+import axios from 'axios'
+import { baseURL } from "../utils/baseURL"
+
 export default function Resources(): JSX.Element {
     /*
     Fetch data resources data and put it into array
     Define interface
     Map array into SingleRsrouce component
     */
+          
+    const [resources, setResources] = useState<ResourceInfo[]>([])
 
-    interface Resource {
-        id: number,
-        title: string,
-        description: string,
-        url: string,
-        origin: string,
-        author_id: number,
-        creation_date: string,
-        votes: number,
-        content_type: string,
-        recommended_week?: string,
-        evaluation?: string,
-        justification?: string
-    }
+    useEffect(()=>{
+        const fetchResources = async () => {
+            const response = await axios.get(`${baseURL}/resources`)
+            setResources(response.data)
+        }
+        fetchResources();
+    }, [])
 
 
     return (
