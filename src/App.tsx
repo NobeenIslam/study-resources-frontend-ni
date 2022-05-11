@@ -1,5 +1,11 @@
+import MainPage from "./components/MainPage";
+
 function App(): JSX.Element {
-  return <h1>Study Resources Catalog</h1>;
+  return (
+    <>
+      <MainPage />
+    </>
+  );
 }
 
 export default App;
