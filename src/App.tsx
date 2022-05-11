@@ -5,7 +5,7 @@ function App(): JSX.Element {
     <>
       <MainPage />
     </>
-  )
+  );
 }
 
 export default App;
