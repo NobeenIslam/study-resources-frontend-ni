@@ -8,7 +8,8 @@ import Resources from "./Resources";
 export default function MainPage(): JSX.Element {
   const [resourceSearch, setResourceSearch] = useState<string>("");
   const [resources, setResources] = useState<ResourceInfo[]>([]);
-  const [triggerRerender, setTriggerRerender] = useState<boolean>(true)
+  // eslint-disable-next-line
+  const [triggerRerender, setTriggerRerender] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchResources = async () => {
@@ -18,9 +19,9 @@ export default function MainPage(): JSX.Element {
     fetchResources();
   }, [triggerRerender]);
 
-  const filteredForSearch = resources.filter((resource) => matchesSearchText(resource, resourceSearch))
-
-
+  const filteredForSearch = resources.filter((resource) =>
+    matchesSearchText(resource, resourceSearch)
+  );
 
   return (
     <main>
@@ -30,6 +31,7 @@ export default function MainPage(): JSX.Element {
         value={resourceSearch}
         onChange={(e) => setResourceSearch(e.target.value)}
       ></input>
+      <button onClick={() => setResourceSearch("")}>Clear Search</button>
       <Resources resources={filteredForSearch} />
     </main>
   );
