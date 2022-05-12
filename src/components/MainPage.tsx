@@ -25,14 +25,11 @@ export default function MainPage(): JSX.Element {
 
   return (
     <main>
-      <h1>Resources for you</h1>
-      <input
-        placeholder="Search Resources..."
-        value={resourceSearch}
-        onChange={(e) => setResourceSearch(e.target.value)}
-      ></input>
-      <button onClick={() => setResourceSearch("")}>Clear Search</button>
-      <Resources resources={filteredForSearch} />
+      <Resources
+        resources={filteredForSearch}
+        resourceSearch={resourceSearch}
+        setResourceSearch={setResourceSearch}
+      />
     </main>
   );
 }
