@@ -12,3 +12,8 @@ export interface ResourceInfo {
   evaluation?: string;
   justification?: string;
 }
+export interface UserInterface {
+  id: number;
+  name: string;
+  is_faculty: boolean;
+}
