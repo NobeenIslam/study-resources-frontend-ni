@@ -5,12 +5,16 @@ export interface ResourceInfo {
   url: string;
   origin: string;
   author_id: number;
+  author_name: string;
+  is_faculty: boolean;
   creation_date: string;
   votes: number;
   content_type: string;
-  recommended_week?: string;
-  evaluation?: string;
-  justification?: string;
+  recommended_week?: string | null;
+  evaluation?: string | null;
+  justification?: string | null;
+  votesInfo: { upVotes: number; downVotes: number; totalVotes: number };
+  tags: { tag_id: number; tag_name: string }[];
 }
 export interface UserInterface {
   id: number;
