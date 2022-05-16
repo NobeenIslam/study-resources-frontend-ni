@@ -21,7 +21,7 @@ export default function NavBar(props: NavBarProps): JSX.Element {
     <section>
       <select>
         {users.map((user) => (
-          <option key={user.id} onClick={() => props.setCurrentUser(user)}>
+          <option key={user.user_id} onClick={() => props.setCurrentUser(user)}>
             {user.name}
           </option>
         ))}

@@ -18,7 +18,7 @@ export default function Resources(props: ResourcesProps): JSX.Element {
   const resourcesBlocks: JSX.Element[] = props.resources
     .slice(0, 5)
     .map((resource) => (
-      <SingleResourceBlock key={resource.id} data={resource} />
+      <SingleResourceBlock key={resource.resource_id} data={resource} />
     ));
 
   return (

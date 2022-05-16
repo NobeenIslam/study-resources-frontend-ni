@@ -1,11 +1,11 @@
 export interface ResourceInfo {
-  id: number;
+  resource_id: number;
   title: string;
   description: string;
   url: string;
   origin: string;
   author_id: number;
-  author_name: string;
+  name: string;
   is_faculty: boolean;
   creation_date: string;
   votes: number;
@@ -17,7 +17,7 @@ export interface ResourceInfo {
   tags: { tag_id: number; tag_name: string }[];
 }
 export interface UserInterface {
-  id: number;
+  user_id: number;
   name: string;
   is_faculty: boolean;
 }

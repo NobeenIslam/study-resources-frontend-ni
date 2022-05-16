@@ -13,7 +13,7 @@ export default function SingleResourceBlock({
       <h2>{data.title}</h2>
       <h4>
         <em>
-          Uploaded By: {data.author_name} {}
+          Uploaded By: {data.name} {" "}
           <small>({creationDateFormatter(data.creation_date)})</small>
         </em>
         {data.is_faculty && (
