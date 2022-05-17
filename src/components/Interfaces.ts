@@ -21,3 +21,7 @@ export interface UserInterface {
   name: string;
   is_faculty: boolean;
 }
+export interface NoUserInterface {
+  user_id: NoUser;
+}
+type NoUser = "not-signed-in";
