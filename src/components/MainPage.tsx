@@ -3,16 +3,17 @@ import { useEffect, useState } from "react";
 import { baseURL } from "../utils/baseURL";
 import { matchesSearchText } from "../utils/matchesSearchText";
 import { ResourceInfo, UserInterface } from "./Interfaces";
-import NavBar from "./NavBar";
 import Resources from "./Resources";
 
-export default function MainPage(): JSX.Element {
+interface MainPageProps {
+  setCurrentUser: (arg0: UserInterface) => void;
+}
+
+export default function MainPage(props: MainPageProps): JSX.Element {
   const [resourceSearch, setResourceSearch] = useState<string>("");
   const [resources, setResources] = useState<ResourceInfo[]>([]);
   // eslint-disable-next-line
   const [triggerRerender, setTriggerRerender] = useState<boolean>(true);
-  // eslint-disable-next-line
-  const [currentUser, setCurrentUser] = useState<UserInterface>();
 
   useEffect(() => {
     const fetchResources = async () => {
@@ -28,7 +29,6 @@ export default function MainPage(): JSX.Element {
 
   return (
     <main>
-      <NavBar setCurrentUser={setCurrentUser} />
       <Resources
         resources={filteredForSearch}
         resourceSearch={resourceSearch}

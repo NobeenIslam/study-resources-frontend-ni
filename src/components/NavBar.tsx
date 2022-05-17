@@ -4,6 +4,7 @@ import { baseURL } from "../utils/baseURL";
 import { UserInterface } from "./Interfaces";
 
 interface NavBarProps {
+  currentUser: UserInterface | undefined;
   setCurrentUser: (arg0: UserInterface) => void;
 }
 export default function NavBar(props: NavBarProps): JSX.Element {
@@ -17,15 +18,28 @@ export default function NavBar(props: NavBarProps): JSX.Element {
     fetchUsers();
   }, []);
 
-  return (
-    <section>
-      <select>
-        {users.map((user) => (
-          <option key={user.user_id} onClick={() => props.setCurrentUser(user)}>
-            {user.name}
-          </option>
-        ))}
-      </select>
-    </section>
-  );
+  if (!props.currentUser) {
+    return (
+      <section>
+        <select>
+          {users.map((user) => (
+            <option
+              key={user.user_id}
+              onClick={() => props.setCurrentUser(user)}
+            >
+              {user.name}
+            </option>
+          ))}
+        </select>
+      </section>
+    );
+  } else {
+    return (
+      <section>
+        <button>Create Resource</button>
+        <button>Study List</button>
+        <button>Sign-out</button>
+      </section>
+    );
+  }
 }
