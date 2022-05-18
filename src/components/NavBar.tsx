@@ -10,7 +10,7 @@ interface NavBarProps {
 }
 export default function NavBar(props: NavBarProps): JSX.Element {
   const [users, setUsers] = useState<UserInterface[]>([]);
-  console.log(props.currentUser)
+  console.log(props.currentUser);
 
   useEffect(() => {
     async function fetchUsers() {
@@ -26,13 +26,17 @@ export default function NavBar(props: NavBarProps): JSX.Element {
         <select
           value={props.currentUser.user_id}
           onChange={(e) => {
-            const selectedId = parseInt(e.target.value)
-            const selectedUser: UserInterface[] = users.filter((user) => user.user_id === selectedId)
-            props.setCurrentUser(selectedUser[0])
+            const selectedId = parseInt(e.target.value);
+            const selectedUser: UserInterface[] = users.filter(
+              (user) => user.user_id === selectedId
+            );
+            props.setCurrentUser(selectedUser[0]);
           }}
         >
           {users.map((user) => (
-            <option key={user.user_id} value={user.user_id}>{user.name}</option>
+            <option key={user.user_id} value={user.user_id}>
+              {user.name}
+            </option>
           ))}
         </select>
       </section>
