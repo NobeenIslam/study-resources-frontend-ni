@@ -1,4 +1,5 @@
 import axios from "axios";
+import { UserInfo } from "os";
 import { useEffect, useState } from "react";
 import { baseURL, frontendURL } from "../utils/URL";
 import { NoUserInterface, UserInterface } from "./Interfaces";
@@ -23,7 +24,11 @@ export default function NavBar(props: NavBarProps): JSX.Element {
       <section>
         <select
           value={props.currentUser.user_id}
-          onChange={(e) => console.log(e.target.value)}
+          onChange={(e) => {
+            const selectedId = parseInt(e.target.value)
+            const selectedUser: UserInterface[] = users.filter((user) => user.user_id === selectedId)
+            props.setCurrentUser(selectedUser[0])
+          }}
         >
           {users.map((user) => (
             <option key={user.user_id}>{user.name}</option>
