@@ -24,7 +24,14 @@ export interface UserInterface {
   is_faculty: boolean;
 }
 
+
 export interface tagInterface {
   tag_id: number;
   name: string;
 }
+
+export interface NoUserInterface {
+  user_id: NoUser;
+}
+type NoUser = "not-signed-in";
+

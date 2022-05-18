@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { baseURL } from "../utils/baseURL";
+import { baseURL } from "../utils/URL";
 import { matchesSearchText } from "../utils/matchesSearchText";
 import { ResourceInfo, UserInterface } from "./Interfaces";
 import Resources from "./Resources";
