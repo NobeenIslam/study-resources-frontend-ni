@@ -43,17 +43,23 @@ export default function NavBar(props: NavBarProps): JSX.Element {
         </select>
       </section>
     );
-  } else {
+  }
+  //wait until currentUser is loaded before rendering when redirected to other pages
+  else {
     return (
       <section>
         <nav>
-        <Link to={"/create"} state={ {userData: props.currentUser}}>Create Resource</Link>
-        <Link to={"/study-list"} state={ {userData: props.currentUser}}>My Study List</Link>
-        <button
-          onClick={() => props.setCurrentUser({ user_id: "not-signed-in" })}
-        >
-          Sign-out from {props.currentUser.name}
-        </button> 
+          <Link to={"/create"} state={{ userData: props.currentUser }}>
+            Create Resource
+          </Link>
+          <Link to={"/study-list"} state={{ userData: props.currentUser }}>
+            My Study List
+          </Link>
+          <button
+            onClick={() => props.setCurrentUser({ user_id: "not-signed-in" })}
+          >
+            Sign-out from {props.currentUser.name}
+          </button>
         </nav>
       </section>
     );
