@@ -1,14 +1,15 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { baseURL } from "../utils/baseURL";
-import { UserInterface } from "./Interfaces";
+import { baseURL, frontendURL } from "../utils/URL";
+import { NoUserInterface, UserInterface } from "./Interfaces";
 
 interface NavBarProps {
-  currentUser: UserInterface | undefined;
-  setCurrentUser: (arg0: UserInterface) => void;
+  currentUser: UserInterface | NoUserInterface;
+  setCurrentUser: (arg0: UserInterface | NoUserInterface) => void;
 }
 export default function NavBar(props: NavBarProps): JSX.Element {
   const [users, setUsers] = useState<UserInterface[]>([]);
+  console.log(props.currentUser);
 
   useEffect(() => {
     async function fetchUsers() {
@@ -18,15 +19,21 @@ export default function NavBar(props: NavBarProps): JSX.Element {
     fetchUsers();
   }, []);
 
-  if (!props.currentUser) {
+  if (props.currentUser.user_id === "not-signed-in") {
     return (
       <section>
-        <select>
+        <select
+          value={props.currentUser.user_id}
+          onChange={(e) => {
+            const selectedId = parseInt(e.target.value);
+            const selectedUser: UserInterface[] = users.filter(
+              (user) => user.user_id === selectedId
+            );
+            props.setCurrentUser(selectedUser[0]);
+          }}
+        >
           {users.map((user) => (
-            <option
-              key={user.user_id}
-              onClick={() => props.setCurrentUser(user)}
-            >
+            <option key={user.user_id} value={user.user_id}>
               {user.name}
             </option>
           ))}
@@ -36,9 +43,17 @@ export default function NavBar(props: NavBarProps): JSX.Element {
   } else {
     return (
       <section>
-        <button>Create Resource</button>
-        <button>Study List</button>
-        <button>Sign-out</button>
+        <button onClick={() => window.open(`${frontendURL}/create`)}>
+          Create Resource
+        </button>
+        <button onClick={() => window.open(`${frontendURL}/study-list`)}>
+          Study List
+        </button>
+        <button
+          onClick={() => props.setCurrentUser({ user_id: "not-signed-in" })}
+        >
+          Sign-out
+        </button>
       </section>
     );
   }

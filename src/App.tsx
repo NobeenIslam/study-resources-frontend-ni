@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CreateResourcePage from "./components/CreateResourcePage";
-import { UserInterface } from "./components/Interfaces";
+import { NoUserInterface, UserInterface } from "./components/Interfaces";
 import MainPage from "./components/MainPage";
 import NavBar from "./components/NavBar";
+import StudyList from "./components/StudyList";
 
 function App(): JSX.Element {
-  const [currentUser, setCurrentUser] = useState<UserInterface | undefined>();
+  const [currentUser, setCurrentUser] = useState<
+    UserInterface | NoUserInterface
+  >({ user_id: "not-signed-in" });
   return (
     <>
       <NavBar setCurrentUser={setCurrentUser} currentUser={currentUser} />
@@ -17,6 +20,7 @@ function App(): JSX.Element {
             element={<MainPage setCurrentUser={setCurrentUser} />}
           ></Route>
           <Route path="/create" element={<CreateResourcePage />}></Route>
+          <Route path="/study-list" element={<StudyList />}></Route>
         </Routes>
       </BrowserRouter>
     </>
