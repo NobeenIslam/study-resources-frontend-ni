@@ -1,5 +1,4 @@
 import axios from "axios";
-import { UserInfo } from "os";
 import { useEffect, useState } from "react";
 import { baseURL, frontendURL } from "../utils/URL";
 import { NoUserInterface, UserInterface } from "./Interfaces";
