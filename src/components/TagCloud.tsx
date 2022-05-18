@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { baseURL } from "../utils/baseURL";
+import { baseURL } from "../utils/URL";
 import { ResourceInfo, tagInterface } from "./Interfaces";
 
 interface TagCloudInt {
@@ -43,7 +43,7 @@ export function TagCloud(props: TagCloudInt): JSX.Element {
         className={
           classid
             ? classid[0] === tag.tag_id
-              ? "tagElement" + (tag.tag_id - classid[0] + 1)
+              ? "tagElement" + 1
               : "tagElement0"
             : "tagElement0"
         }
