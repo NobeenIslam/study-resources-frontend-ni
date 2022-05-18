@@ -10,16 +10,17 @@ function App(): JSX.Element {
   const [currentUser, setCurrentUser] = useState<
     UserInterface | NoUserInterface
   >({ user_id: "not-signed-in" });
+  
   return (
     <>
-      <NavBar setCurrentUser={setCurrentUser} currentUser={currentUser} />
       <BrowserRouter>
+      <NavBar setCurrentUser={setCurrentUser} currentUser={currentUser} />
         <Routes>
           <Route
             path="/"
             element={<MainPage setCurrentUser={setCurrentUser} />}
           ></Route>
-          <Route path="/create" element={<CreateResourcePage />}></Route>
+          <Route path="/create" element={<CreateResourcePage setCurrentUser={setCurrentUser} currentUser={currentUser}/>}></Route>
           <Route path="/study-list" element={<StudyList />}></Route>
         </Routes>
       </BrowserRouter>

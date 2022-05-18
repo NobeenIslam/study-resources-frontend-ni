@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+//eslint-disable-next-line
 import { baseURL, frontendURL } from "../utils/URL";
 import { NoUserInterface, UserInterface } from "./Interfaces";
 
@@ -32,6 +34,7 @@ export default function NavBar(props: NavBarProps): JSX.Element {
             props.setCurrentUser(selectedUser[0]);
           }}
         >
+          <option>Choose user...</option>
           {users.map((user) => (
             <option key={user.user_id} value={user.user_id}>
               {user.name}
@@ -43,17 +46,15 @@ export default function NavBar(props: NavBarProps): JSX.Element {
   } else {
     return (
       <section>
-        <button onClick={() => window.open(`${frontendURL}/create`)}>
-          Create Resource
-        </button>
-        <button onClick={() => window.open(`${frontendURL}/study-list`)}>
-          Study List
-        </button>
+        <nav>
+        <Link to={"/create"} state={ {userData: props.currentUser}}>Create Resource</Link>
+        <Link to={"/study-list"} state={ {userData: props.currentUser}}>My Study List</Link>
         <button
           onClick={() => props.setCurrentUser({ user_id: "not-signed-in" })}
         >
-          Sign-out
-        </button>
+          Sign-out from {props.currentUser.name}
+        </button> 
+        </nav>
       </section>
     );
   }
