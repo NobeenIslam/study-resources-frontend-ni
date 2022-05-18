@@ -58,7 +58,10 @@ export default function NavBar(props: NavBarProps): JSX.Element {
           <button
             onClick={() => props.setCurrentUser({ user_id: "not-signed-in" })}
           >
-            Sign-out from {props.currentUser.name}
+            Sign-out from{" "}
+            {props.currentUser && props.currentUser.name
+              ? props.currentUser.name
+              : "Not loaded yet"}
           </button>
         </nav>
       </section>
