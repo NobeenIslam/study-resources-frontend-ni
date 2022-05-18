@@ -1,5 +1,6 @@
 export interface ResourceInfo {
   resource_id: number;
+  tag_id?: number;
   title: string;
   description: string;
   url: string;
@@ -16,8 +17,14 @@ export interface ResourceInfo {
   votesInfo: { upVotes: number; downVotes: number; totalVotes: number };
   tags: { tag_id: number; tag_name: string }[];
 }
+
 export interface UserInterface {
   user_id: number;
   name: string;
   is_faculty: boolean;
+}
+
+export interface tagInterface {
+  tag_id: number;
+  name: string;
 }
