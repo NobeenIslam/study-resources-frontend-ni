@@ -4,6 +4,7 @@ import { baseURL } from "../utils/URL";
 import { matchesSearchText } from "../utils/matchesSearchText";
 import { ResourceInfo, UserInterface } from "./Interfaces";
 import Resources from "./Resources";
+import { TagCloud } from "./TagCloud";
 
 interface MainPageProps {
   setCurrentUser: (arg0: UserInterface) => void;
@@ -14,6 +15,7 @@ export default function MainPage(props: MainPageProps): JSX.Element {
   const [resources, setResources] = useState<ResourceInfo[]>([]);
   // eslint-disable-next-line
   const [triggerRerender, setTriggerRerender] = useState<boolean>(true);
+  const [filteredByTag, setFilteredByTag] = useState<ResourceInfo[]>([]);
 
   useEffect(() => {
     const fetchResources = async () => {
@@ -23,12 +25,24 @@ export default function MainPage(props: MainPageProps): JSX.Element {
     fetchResources();
   }, [triggerRerender]);
 
-  const filteredForSearch = resources.filter((resource) =>
-    matchesSearchText(resource, resourceSearch)
-  );
+  let filteredForSearch;
+
+  if (filteredByTag.length > 0) {
+    filteredForSearch = filteredByTag.filter((resource) =>
+      matchesSearchText(resource, resourceSearch)
+    );
+  } else {
+    filteredForSearch = resources.filter((resource) =>
+      matchesSearchText(resource, resourceSearch)
+    );
+  }
 
   return (
     <main>
+      <TagCloud
+        setFilteredByTag={setFilteredByTag}
+        filteredByTag={filteredByTag}
+      />
       <Resources
         resources={filteredForSearch}
         resourceSearch={resourceSearch}

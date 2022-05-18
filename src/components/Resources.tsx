@@ -24,6 +24,7 @@ export default function Resources(props: ResourcesProps): JSX.Element {
   return (
     <main>
       <h1>Resources for you</h1>
+      <p>Number Of Resources: {props.resources.length}</p>
       <Controls
         resourceSearch={props.resourceSearch}
         setResourceSearch={props.setResourceSearch}
