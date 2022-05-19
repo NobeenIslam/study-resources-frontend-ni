@@ -11,7 +11,7 @@ interface NavBarProps {
 }
 export default function NavBar(props: NavBarProps): JSX.Element {
   const [users, setUsers] = useState<UserInterface[]>([]);
-  console.log(props.currentUser);
+  //console.log(props.currentUser);
 
   useEffect(() => {
     async function fetchUsers() {
