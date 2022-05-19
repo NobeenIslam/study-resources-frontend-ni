@@ -7,8 +7,10 @@ interface CreateResourcePageProps {
   currentUser: UserInterface | NoUserInterface;
   setCurrentUser: (arg0: UserInterface | NoUserInterface) => void;
 }
-        
-export default function CreateResourcePage(): JSX.Element {
+
+export default function CreateResourcePage(
+  props: CreateResourcePageProps
+): JSX.Element {
   const [formData, setFormData] = useState<resourceForm>({
     title: "",
     description: "",
@@ -43,7 +45,7 @@ export default function CreateResourcePage(): JSX.Element {
   //   setFormData({ title: "", text: "" });
   //   props.changeToggle(!props.toggle);
   // }
-  
+
   type StateType = { userData: UserInterface };
   const { userData } = useLocation().state as StateType;
 
@@ -148,3 +150,4 @@ export default function CreateResourcePage(): JSX.Element {
       </form>
     </>
   );
+}
