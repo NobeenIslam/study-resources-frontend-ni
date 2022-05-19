@@ -1,6 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { resourceForm } from "./Interfaces";
+import { useLocation } from "react-router-dom";
+import { UserInterface, NoUserInterface } from "./Interfaces";
 
+interface CreateResourcePageProps {
+  currentUser: UserInterface | NoUserInterface;
+  setCurrentUser: (arg0: UserInterface | NoUserInterface) => void;
+}
+        
 export default function CreateResourcePage(): JSX.Element {
   const [formData, setFormData] = useState<resourceForm>({
     title: "",
@@ -36,9 +43,15 @@ export default function CreateResourcePage(): JSX.Element {
   //   setFormData({ title: "", text: "" });
   //   props.changeToggle(!props.toggle);
   // }
+  
+  type StateType = { userData: UserInterface };
+  const { userData } = useLocation().state as StateType;
+
+  useEffect(() => props.setCurrentUser(userData));
 
   return (
     <>
+      <p>Hello {userData.name}</p>
       <form onSubmit={handleSubmit}>
         <label htmlFor="Resource-form-title">Title</label>
         <input
@@ -135,4 +148,3 @@ export default function CreateResourcePage(): JSX.Element {
       </form>
     </>
   );
-}

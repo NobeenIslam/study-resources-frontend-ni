@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+//eslint-disable-next-line
 import { baseURL, frontendURL } from "../utils/URL";
 import { NoUserInterface, UserInterface } from "./Interfaces";
 
@@ -9,7 +11,6 @@ interface NavBarProps {
 }
 export default function NavBar(props: NavBarProps): JSX.Element {
   const [users, setUsers] = useState<UserInterface[]>([]);
-  console.log(props.currentUser);
 
   useEffect(() => {
     async function fetchUsers() {
@@ -32,6 +33,7 @@ export default function NavBar(props: NavBarProps): JSX.Element {
             props.setCurrentUser(selectedUser[0]);
           }}
         >
+          <option>Choose user...</option>
           {users.map((user) => (
             <option key={user.user_id} value={user.user_id}>
               {user.name}
@@ -40,20 +42,32 @@ export default function NavBar(props: NavBarProps): JSX.Element {
         </select>
       </section>
     );
-  } else {
+  }
+  //wait until currentUser is loaded before rendering when redirected to other pages
+  else {
     return (
       <section>
-        <button onClick={() => window.open(`${frontendURL}/create`)}>
-          Create Resource
-        </button>
-        <button onClick={() => window.open(`${frontendURL}/study-list`)}>
-          Study List
-        </button>
-        <button
-          onClick={() => props.setCurrentUser({ user_id: "not-signed-in" })}
-        >
-          Sign-out
-        </button>
+        <nav>
+          <Link to={"/"} state={{ userData: props.currentUser }}>
+            Home
+          </Link>
+          <Link to={"/create"} state={{ userData: props.currentUser }}>
+            Create Resource
+          </Link>
+          <Link to={"/study-list"} state={{ userData: props.currentUser }}>
+            My Study List
+          </Link>
+          <Link
+            to={"/"}
+            onClick={() => props.setCurrentUser({ user_id: "not-signed-in" })}
+            state={{ userData: props.currentUser }}
+          >
+            Sign-out from{" "}
+            {props.currentUser && props.currentUser.name
+              ? props.currentUser.name
+              : "Not loaded yet"}
+          </Link>
+        </nav>
       </section>
     );
   }
