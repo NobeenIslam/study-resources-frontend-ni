@@ -17,7 +17,7 @@ export function TagCloud(props: TagCloudInt): JSX.Element {
       setTags(tagRes.data);
     }
     fetchTags();
-  });
+  }, []);
 
   async function handleClick(id: number) {
     const resourcesForTag = await axios.get(`${baseURL}/tags/${id}`);
