@@ -7,13 +7,11 @@ interface CreateResourcePageProps {
   setCurrentUser: (arg0: UserInterface | NoUserInterface) => void;
 }
 
-type StateType = { userData: UserInterface }
+type StateType = { userData: UserInterface };
 export default function CreateResourcePage(
   props: CreateResourcePageProps
 ): JSX.Element {
-  const { userData } = useLocation().state as StateType
-  console.log("THis is userData", userData, userData.name, Object.keys(userData));
-  console.log("This is current User", props.currentUser);
+  const { userData } = useLocation().state as StateType;
 
   useEffect(() => props.setCurrentUser(userData));
 

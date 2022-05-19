@@ -11,7 +11,6 @@ interface NavBarProps {
 }
 export default function NavBar(props: NavBarProps): JSX.Element {
   const [users, setUsers] = useState<UserInterface[]>([]);
-  //console.log(props.currentUser);
 
   useEffect(() => {
     async function fetchUsers() {
@@ -49,20 +48,25 @@ export default function NavBar(props: NavBarProps): JSX.Element {
     return (
       <section>
         <nav>
+          <Link to={"/"} state={{ userData: props.currentUser }}>
+            Home
+          </Link>
           <Link to={"/create"} state={{ userData: props.currentUser }}>
             Create Resource
           </Link>
           <Link to={"/study-list"} state={{ userData: props.currentUser }}>
             My Study List
           </Link>
-          <button
+          <Link
+            to={"/"}
             onClick={() => props.setCurrentUser({ user_id: "not-signed-in" })}
+            state={{ userData: props.currentUser }}
           >
             Sign-out from{" "}
             {props.currentUser && props.currentUser.name
               ? props.currentUser.name
               : "Not loaded yet"}
-          </button>
+          </Link>
         </nav>
       </section>
     );
