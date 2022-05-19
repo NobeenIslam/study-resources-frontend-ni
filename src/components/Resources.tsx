@@ -29,7 +29,7 @@ export default function Resources(props: ResourcesProps): JSX.Element {
         resourceSearch={props.resourceSearch}
         setResourceSearch={props.setResourceSearch}
       />
-      <section>{resourcesBlocks}</section>
+      <section className="resourceListContainer">{resourcesBlocks}</section>
     </main>
   );
 }
