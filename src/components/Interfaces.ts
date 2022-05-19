@@ -18,6 +18,19 @@ export interface ResourceInfo {
   tags: { tag_id: number; tag_name: string }[];
 }
 
+export interface resourceForm {
+  title: string;
+  description: string;
+  url: string;
+  origin: string;
+  //author_id: number;
+  content_type: string;
+  recommended_week?: string;
+  evaluation?: string;
+  justification?: string;
+  tags: string;
+}
+
 export interface UserInterface {
   user_id: number;
   name: string;
