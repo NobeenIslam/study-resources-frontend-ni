@@ -22,12 +22,14 @@ export default function CreateResourcePage(): JSX.Element {
       | React.ChangeEvent<HTMLInputElement>
   ) {
     const { name, value } = event.target;
-    console.log("This is name,value:",name,value)
+    //console.log("This is name,value:",name,value)
     setFormData((previous) => {
       return { ...previous, [name]: value };
     });
   }
-  const handleSubmit = () => {console.log(formData)}
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log("This is form data:",formData)}
   // async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
   //   event.preventDefault();
   //   await axios.post(baseUrl + "/pastes", formData);
@@ -89,20 +91,20 @@ export default function CreateResourcePage(): JSX.Element {
             onChange={(e) => handleFormChange(e)}
           />
           <br />
-          <label htmlFor="Resource-form-content-type">content-type</label>
+          <label htmlFor="Resource-form-content-type">content Type</label>
           <textarea
             className="form--content-type"
-            name="content-type"
+            name="content_type"
             value={formData.content_type}
             id="Resource-form-content-type"
             placeholder="Input content-type Here"
             onChange={(e) => handleFormChange(e)}
           />
           <br />
-          <label htmlFor="Resource-form-recommended-week">recommended-week</label>
+          <label htmlFor="Resource-form-recommended-week">recommended Week</label>
           <textarea
             className="form--recommended-week"
-            name="recommended-week"
+            name="recommended_week"
             value={formData.recommended_week}
             id="Resource-form-recommended-week"
             placeholder="Input recommended-week Here"
