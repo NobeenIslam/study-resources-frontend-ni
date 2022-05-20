@@ -42,6 +42,7 @@ export default function CreateResourcePage(
   // async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
   //   event.preventDefault();
   //   await axios.post(baseUrl + "/pastes", formData);
+
   //   setFormData({ title: "", text: "" });
   //   props.changeToggle(!props.toggle);
   // }
@@ -85,6 +86,21 @@ export default function CreateResourcePage(
             placeholder="Input Tags"
             onChange={(e) => handleFormChange(e)}
           /> */}
+        <label htmlFor="Resource-form-existing-tags">Evaluation</label>
+        <select
+          className="form--tag"
+          name="evaluation"
+          defaultValue={"No evaluation selected"}
+          id="Resource-form-existing-tags"
+          placeholder="Input evaluation Here"
+          onChange={(e) => handleFormChange(e)}
+        >
+          <option>Select from dropdown</option>{" "}
+          {/*disabled hidden hides the selection */}
+          <option>I recommend this resource after having used it</option>
+          <option>I do not recommend this resource after having used it</option>
+          <option>I haven't used this resource but it looks promising</option>
+        </select>
         <br />
         <label htmlFor="Resource-form-url">URL</label>
         <textarea
@@ -157,3 +173,16 @@ export default function CreateResourcePage(
     </>
   );
 }
+
+/*
+Create a cloud of tags that a user can click
+onClick of a tag add that to an array of tags
+this also adds the tag button to a tag assignment area
+
+Create separate input for create a tag
+On submit add to the array of tags and th tags assigment area
+Need to specify specific input for user when creating the tag.
+Can't accept weird inputs
+
+
+*/
