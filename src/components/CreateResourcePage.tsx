@@ -28,11 +28,11 @@ export default function CreateResourcePage(
     event:
       | React.ChangeEvent<HTMLTextAreaElement>
       | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>
   ) {
     const { name, value } = event.target;
-    //console.log("This is name,value:",name,value)
     setFormData((previous) => {
-      return { ...previous, [name]: value };
+      return { ...previous, [name]: value }; //Updates key value pair of object if they already exist which they should
     });
   }
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -116,7 +116,7 @@ export default function CreateResourcePage(
           onChange={(e) => handleFormChange(e)}
         />
         <br />
-        <label htmlFor="Resource-form-recommended-week">recommended Week</label>
+        <label htmlFor="Resource-form-recommended-week">Recommended Week</label>
         <textarea
           className="form--recommended-week"
           name="recommended_week"
@@ -127,14 +127,20 @@ export default function CreateResourcePage(
         />
         <br />
         <label htmlFor="Resource-form-evaluation">Evaluation</label>
-        <textarea
+        <select
           className="form--evaluation"
           name="evaluation"
-          value={formData.evaluation}
+          defaultValue={"No evaluation selected"}
           id="Resource-form-evaluation"
           placeholder="Input evaluation Here"
           onChange={(e) => handleFormChange(e)}
-        />
+        >
+          <option>Select from dropdown</option>{" "}
+          {/*disabled hidden hides the selection */}
+          <option>I recommend this resource after having used it</option>
+          <option>I do not recommend this resource after having used it</option>
+          <option>I haven't used this resource but it looks promising</option>
+        </select>
         <br />
         <label htmlFor="Resource-form-justification">Justification</label>
         <textarea
