@@ -5,7 +5,7 @@ import { NoUserInterface, ResourceInfo, UserInterface } from "./Interfaces";
 
 interface SingleResourceBlockProps {
   data: ResourceInfo;
-  studylist: boolean;
+  isInStudyList: boolean;
   currentUser: UserInterface | NoUserInterface;
 }
 
@@ -59,7 +59,7 @@ export default function SingleResourceBlock(
       <button onClick={() => window.open(props.data.url)}>
         Go To {props.data.content_type}
       </button>
-      {props.studylist === false &&
+      {props.isInStudyList === false &&
         typeof props.currentUser.user_id === "number" && (
           <button onClick={() => handleAddStudyList(props.data.resource_id)}>
             Add to Study List

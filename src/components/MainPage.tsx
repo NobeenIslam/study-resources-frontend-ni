@@ -9,6 +9,7 @@ import { TagCloud } from "./TagCloud";
 interface MainPageProps {
   setCurrentUser: (arg0: UserInterface) => void;
   currentUser: UserInterface | NoUserInterface;
+  studylist: ResourceInfo[]
 }
 
 export default function MainPage(props: MainPageProps): JSX.Element {
@@ -49,6 +50,7 @@ export default function MainPage(props: MainPageProps): JSX.Element {
         resourceSearch={resourceSearch}
         setResourceSearch={setResourceSearch}
         currentUser={props.currentUser}
+        studylist={props.studylist}
       />
     </main>
   );
