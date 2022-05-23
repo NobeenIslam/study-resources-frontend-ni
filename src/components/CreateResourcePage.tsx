@@ -26,6 +26,7 @@ export default function CreateResourcePage(
   });
 
   const [assignedTags, setAssignedTags] = useState<string[]>([]);
+  const [newTag, setNewTag] = useState<string>("");
 
   function handleFormChange(
     event:
@@ -39,14 +40,14 @@ export default function CreateResourcePage(
     });
   }
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     console.log("This is form data:", formData);
     //Take what's currently in the tags property and append into tagsArray
     //map tagsArray into buttons of tagAssignment area
     //Then we'll replace tags value with the tagArray
     //Then post
-  };
+  }
   // async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
   //   event.preventDefault();
   //   await axios.post(baseUrl + "/pastes", formData);
@@ -54,6 +55,11 @@ export default function CreateResourcePage(
   //   setFormData({ title: "", text: "" });
   //   props.changeToggle(!props.toggle);
   // }
+
+  function handleCreateNewTag(newTag: string): void {
+    setAssignedTags([...assignedTags, newTag]);
+    setNewTag("");
+  }
 
   type StateType = { userData: UserInterface };
   const { userData } = useLocation().state as StateType;
@@ -153,6 +159,12 @@ export default function CreateResourcePage(
         <br />
         <button className="button">Submit</button>
       </form>
+      <input
+        placeholder="Please type in a single tag only"
+        value={newTag}
+        onChange={(e) => setNewTag(e.target.value.trim())}
+      ></input>
+      <button onClick={() => handleCreateNewTag(newTag)}>Submit new Tag</button>
       <TagCloudCreateResource
         setAssignedTags={setAssignedTags}
         assignedTags={assignedTags}
