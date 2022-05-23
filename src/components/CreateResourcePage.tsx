@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
-import { resourceForm } from "./Interfaces";
+import { ResourceForm } from "./Interfaces";
 import { useLocation } from "react-router-dom";
 import { UserInterface, NoUserInterface } from "./Interfaces";
 import { TagCloudCreateResource } from "./TagCloudCreateResource";
 import { tagArrayToObject } from "../utils/tagArrayToObject";
+import axios from "axios";
+import { baseURL } from "../utils/URL";
 
 interface CreateResourcePageProps {
   currentUser: UserInterface | NoUserInterface;
@@ -13,17 +15,22 @@ interface CreateResourcePageProps {
 export default function CreateResourcePage(
   props: CreateResourcePageProps
 ): JSX.Element {
-  const [formData, setFormData] = useState<resourceForm>({
+  type StateType = { userData: UserInterface };
+  const { userData } = useLocation().state as StateType;
+
+  useEffect(() => props.setCurrentUser(userData));
+
+  const [formData, setFormData] = useState<ResourceForm>({
     title: "",
     description: "",
     url: "",
     origin: "",
-    //is_faculty: "";
     content_type: "",
     recommended_week: "",
     evaluation: "",
     justification: "",
-    tags: "",
+    tags: [""],
+    author_id: userData.user_id,
   });
 
   const [assignedTags, setAssignedTags] = useState<string[]>([]);
@@ -46,19 +53,12 @@ export default function CreateResourcePage(
     setNewTag("");
   }
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    formData["tags"] = assignedTags;
     console.log("This is form data:", formData);
-    //Take what's currently in the tags property and append into tagsArray
-    //map tagsArray into buttons of tagAssignment area
-    //Then we'll replace tags value with the tagArray
-    //Then post
+    await axios.post(baseURL + "/resources", formData);
   }
-
-  type StateType = { userData: UserInterface };
-  const { userData } = useLocation().state as StateType;
-
-  useEffect(() => props.setCurrentUser(userData));
 
   const allAssignedTagObjects = tagArrayToObject(assignedTags);
   const allAssignedTagButtons = allAssignedTagObjects.map((tagObj) => (
