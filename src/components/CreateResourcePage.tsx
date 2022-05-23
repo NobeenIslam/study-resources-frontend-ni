@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { resourceForm } from "./Interfaces";
 import { useLocation } from "react-router-dom";
 import { UserInterface, NoUserInterface } from "./Interfaces";
+import { TagCloudCreateResource } from "./TagCloudCreateResource";
 
 interface CreateResourcePageProps {
   currentUser: UserInterface | NoUserInterface;
@@ -24,6 +25,8 @@ export default function CreateResourcePage(
     tags: "",
   });
 
+  const [assignedTags, setAssignedTags] = useState<string[]>([]);
+
   function handleFormChange(
     event:
       | React.ChangeEvent<HTMLTextAreaElement>
@@ -35,9 +38,14 @@ export default function CreateResourcePage(
       return { ...previous, [name]: value }; //Updates key value pair of object if they already exist which they should
     });
   }
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log("This is form data:", formData);
+    //Take what's currently in the tags property and append into tagsArray
+    //map tagsArray into buttons of tagAssignment area
+    //Then we'll replace tags value with the tagArray
+    //Then post
   };
   // async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
   //   event.preventDefault();
@@ -77,30 +85,6 @@ export default function CreateResourcePage(
           onChange={(e) => handleFormChange(e)}
         />
         <br />
-        {/* <label htmlFor="Resource-form-tag">Tag</label>
-          <textarea
-            className="form--tagarea"
-            name="tag"
-            value={formData.tag}
-            id="Resource-form-tags"
-            placeholder="Input Tags"
-            onChange={(e) => handleFormChange(e)}
-          /> */}
-        <label htmlFor="Resource-form-existing-tags">Evaluation</label>
-        <select
-          className="form--tag"
-          name="evaluation"
-          defaultValue={"No evaluation selected"}
-          id="Resource-form-existing-tags"
-          placeholder="Input evaluation Here"
-          onChange={(e) => handleFormChange(e)}
-        >
-          <option>Select from dropdown</option>{" "}
-          {/*disabled hidden hides the selection */}
-          <option>I recommend this resource after having used it</option>
-          <option>I do not recommend this resource after having used it</option>
-          <option>I haven't used this resource but it looks promising</option>
-        </select>
         <br />
         <label htmlFor="Resource-form-url">URL</label>
         <textarea
@@ -152,7 +136,6 @@ export default function CreateResourcePage(
           onChange={(e) => handleFormChange(e)}
         >
           <option>Select from dropdown</option>{" "}
-          {/*disabled hidden hides the selection */}
           <option>I recommend this resource after having used it</option>
           <option>I do not recommend this resource after having used it</option>
           <option>I haven't used this resource but it looks promising</option>
@@ -170,6 +153,11 @@ export default function CreateResourcePage(
         <br />
         <button className="button">Submit</button>
       </form>
+      <TagCloudCreateResource
+        setAssignedTags={setAssignedTags}
+        assignedTags={assignedTags}
+      />
+      <section>{assignedTags}</section>
     </>
   );
 }
@@ -183,6 +171,8 @@ Create separate input for create a tag
 On submit add to the array of tags and th tags assigment area
 Need to specify specific input for user when creating the tag.
 Can't accept weird inputs
+
+
 
 
 */
