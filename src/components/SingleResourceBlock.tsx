@@ -1,46 +1,70 @@
+import axios from "axios";
 import { creationDateFormatter } from "../utils/creationDateFormatter";
-import { ResourceInfo } from "./Interfaces";
+import { baseURL } from "../utils/URL";
+import { NoUserInterface, ResourceInfo, UserInterface } from "./Interfaces";
 
 interface SingleResourceBlockProps {
   data: ResourceInfo;
+  studylist: boolean;
+  currentUser: UserInterface | NoUserInterface;
 }
 
-export default function SingleResourceBlock({
-  data,
-}: SingleResourceBlockProps): JSX.Element {
+export default function SingleResourceBlock(
+  props: SingleResourceBlockProps
+): JSX.Element {
+  async function handleAddStudyList(resource_id: number) {
+    try {
+      const addResourceToSL = await axios
+        .post(`${baseURL}/users/${props.currentUser.user_id}/studylist`, {
+          resource_id: resource_id,
+        })
+    } catch (error) {
+      window.alert(error)
+    }
+  }
+
+
   return (
     <section className="singleResourceContainer">
-      <h2 className="resourceTitle">{data.title}</h2>
+      <h2 className="resourceTitle">{props.data.title}</h2>
       <h4 className="topDataBox">
         <em className="uploadInfo">
-          Uploaded By: {data.name} {data.is_faculty && "⭐"}{" "}
-          <small>({creationDateFormatter(data.creation_date)})</small>
+          Uploaded By: {props.data.name} {props.data.is_faculty && "⭐"}{" "}
+          <small>({creationDateFormatter(props.data.creation_date)})</small>
         </em>
         <p></p>
-        <em className="uploadInfo">Created By: {data.origin}</em>
+        <em className="uploadInfo">Created By: {props.data.origin}</em>
       </h4>
-      <p>{data.description}</p>
-      {data.recommended_week && <p>Recommended For: {data.recommended_week}</p>}
-      {data.evaluation && <p>{data.evaluation}</p>}
-      {data.justification && <p>{data.justification}</p>}
+      <p>{props.data.description}</p>
+      {props.data.recommended_week && (
+        <p>Recommended For: {props.data.recommended_week}</p>
+      )}
+      {props.data.evaluation && <p>{props.data.evaluation}</p>}
+      {props.data.justification && <p>{props.data.justification}</p>}
       <div className="votesContainer">
-        <p>({data.votesInfo.upVotes})</p>
+        <p>({props.data.votesInfo.upVotes})</p>
         <button>👍</button>
-        <p>({data.votesInfo.totalVotes})</p>
+        <p>({props.data.votesInfo.totalVotes})</p>
         <button>👎</button>
-        <p>({data.votesInfo.downVotes})</p>
+        <p>({props.data.votesInfo.downVotes})</p>
       </div>
       {/* display each tag in its own button */}
       <section className="tagCloudContainer">
-        {data.tags.map((tagInfo) => (
+        {props.data.tags.map((tagInfo) => (
           <div className="tagElement0" key={tagInfo.tag_id}>
             {tagInfo.tag_name}
           </div>
         ))}
       </section>
-      <button onClick={() => window.open(data.url)}>
-        Go To {data.content_type}
+      <button onClick={() => window.open(props.data.url)}>
+        Go To {props.data.content_type}
       </button>
+      {props.studylist === false &&
+        typeof props.currentUser.user_id === "number" && (
+          <button onClick={() => handleAddStudyList(props.data.resource_id)}>
+            Add to Study List
+          </button>
+        )}
     </section>
   );
 }
