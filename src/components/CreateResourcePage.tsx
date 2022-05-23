@@ -3,6 +3,7 @@ import { resourceForm } from "./Interfaces";
 import { useLocation } from "react-router-dom";
 import { UserInterface, NoUserInterface } from "./Interfaces";
 import { TagCloudCreateResource } from "./TagCloudCreateResource";
+import { tagArrayToObject } from "../utils/tagArrayToObject";
 
 interface CreateResourcePageProps {
   currentUser: UserInterface | NoUserInterface;
@@ -40,6 +41,11 @@ export default function CreateResourcePage(
     });
   }
 
+  function handleCreateNewTag(newTag: string): void {
+    setAssignedTags([...assignedTags, newTag]);
+    setNewTag("");
+  }
+
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     console.log("This is form data:", formData);
@@ -48,23 +54,26 @@ export default function CreateResourcePage(
     //Then we'll replace tags value with the tagArray
     //Then post
   }
-  // async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-  //   event.preventDefault();
-  //   await axios.post(baseUrl + "/pastes", formData);
-
-  //   setFormData({ title: "", text: "" });
-  //   props.changeToggle(!props.toggle);
-  // }
-
-  function handleCreateNewTag(newTag: string): void {
-    setAssignedTags([...assignedTags, newTag]);
-    setNewTag("");
-  }
 
   type StateType = { userData: UserInterface };
   const { userData } = useLocation().state as StateType;
 
   useEffect(() => props.setCurrentUser(userData));
+
+  const allAssignedTagObjects = tagArrayToObject(assignedTags);
+  const allAssignedTagButtons = allAssignedTagObjects.map((tagObj) => (
+    <button
+      key={tagObj.id}
+      className="tagElement1"
+      onClick={() => {
+        const assignedTagsCopy = [...assignedTags];
+        assignedTagsCopy.splice(tagObj.id, 1);
+        setAssignedTags(assignedTagsCopy);
+      }}
+    >
+      {tagObj.tagName}
+    </button>
+  ));
 
   return (
     <>
@@ -169,7 +178,8 @@ export default function CreateResourcePage(
         setAssignedTags={setAssignedTags}
         assignedTags={assignedTags}
       />
-      <section>{assignedTags}</section>
+      <h3>Assigned Tags</h3>
+      <section>{allAssignedTagButtons}</section>
     </>
   );
 }

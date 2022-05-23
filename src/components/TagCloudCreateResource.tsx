@@ -21,11 +21,19 @@ export function TagCloudCreateResource(
     fetchTags();
   }, []);
 
-  async function handleClick(name: string) {
+  function handleClick(name: string) {
     props.setAssignedTags([...props.assignedTags, name]);
   }
 
-  const tagCloud: JSX.Element[] = tags.map((tag) => {
+  function isTagNotAssigned(tag: tagInterface): boolean {
+    return !props.assignedTags.includes(tag.name);
+  }
+
+  const filteredTags: tagInterface[] = tags.filter((tag: tagInterface) => {
+    return isTagNotAssigned(tag);
+  });
+
+  const tagCloud: JSX.Element[] = filteredTags.map((tag) => {
     return (
       <div
         onClick={() => {
