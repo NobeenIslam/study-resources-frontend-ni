@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
-import { resourceForm } from "./Interfaces";
+import { ResourceForm } from "./Interfaces";
 import { useLocation } from "react-router-dom";
 import { UserInterface, NoUserInterface } from "./Interfaces";
+import { TagCloudCreateResource } from "./TagCloudCreateResource";
+import { tagArrayToObject } from "../utils/tagArrayToObject";
+import axios from "axios";
+import { baseURL } from "../utils/URL";
 
 interface CreateResourcePageProps {
   currentUser: UserInterface | NoUserInterface;
@@ -11,45 +15,65 @@ interface CreateResourcePageProps {
 export default function CreateResourcePage(
   props: CreateResourcePageProps
 ): JSX.Element {
-  const [formData, setFormData] = useState<resourceForm>({
+  type StateType = { userData: UserInterface };
+  const { userData } = useLocation().state as StateType;
+
+  useEffect(() => props.setCurrentUser(userData));
+
+  const [formData, setFormData] = useState<ResourceForm>({
     title: "",
     description: "",
     url: "",
     origin: "",
-    //is_faculty: "";
     content_type: "",
     recommended_week: "",
     evaluation: "",
     justification: "",
-    tags: "",
+    tags: [""],
+    author_id: userData.user_id,
   });
+
+  const [assignedTags, setAssignedTags] = useState<string[]>([]);
+  const [newTag, setNewTag] = useState<string>("");
 
   function handleFormChange(
     event:
       | React.ChangeEvent<HTMLTextAreaElement>
       | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>
   ) {
     const { name, value } = event.target;
-    //console.log("This is name,value:",name,value)
     setFormData((previous) => {
-      return { ...previous, [name]: value };
+      return { ...previous, [name]: value }; //Updates key value pair of object if they already exist which they should
     });
   }
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+
+  function handleCreateNewTag(newTag: string): void {
+    setAssignedTags([...assignedTags, newTag]);
+    setNewTag("");
+  }
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    formData["tags"] = assignedTags;
     console.log("This is form data:", formData);
-  };
-  // async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-  //   event.preventDefault();
-  //   await axios.post(baseUrl + "/pastes", formData);
-  //   setFormData({ title: "", text: "" });
-  //   props.changeToggle(!props.toggle);
-  // }
+    await axios.post(baseURL + "/resources", formData);
+  }
 
-  type StateType = { userData: UserInterface };
-  const { userData } = useLocation().state as StateType;
-
-  useEffect(() => props.setCurrentUser(userData));
+  const allAssignedTagObjects = tagArrayToObject(assignedTags);
+  const allAssignedTagButtons = allAssignedTagObjects.map((tagObj) => (
+    <button
+      key={tagObj.id}
+      className="tagElement1"
+      onClick={() => {
+        const assignedTagsCopy = [...assignedTags];
+        assignedTagsCopy.splice(tagObj.id, 1);
+        setAssignedTags(assignedTagsCopy);
+      }}
+    >
+      {tagObj.tagName}
+    </button>
+  ));
 
   return (
     <>
@@ -76,15 +100,6 @@ export default function CreateResourcePage(
           onChange={(e) => handleFormChange(e)}
         />
         <br />
-        {/* <label htmlFor="Resource-form-tag">Tag</label>
-          <textarea
-            className="form--tagarea"
-            name="tag"
-            value={formData.tag}
-            id="Resource-form-tags"
-            placeholder="Input Tags"
-            onChange={(e) => handleFormChange(e)}
-          /> */}
         <br />
         <label htmlFor="Resource-form-url">URL</label>
         <textarea
@@ -116,7 +131,7 @@ export default function CreateResourcePage(
           onChange={(e) => handleFormChange(e)}
         />
         <br />
-        <label htmlFor="Resource-form-recommended-week">recommended Week</label>
+        <label htmlFor="Resource-form-recommended-week">Recommended Week</label>
         <textarea
           className="form--recommended-week"
           name="recommended_week"
@@ -127,14 +142,19 @@ export default function CreateResourcePage(
         />
         <br />
         <label htmlFor="Resource-form-evaluation">Evaluation</label>
-        <textarea
+        <select
           className="form--evaluation"
           name="evaluation"
-          value={formData.evaluation}
+          defaultValue={"No evaluation selected"}
           id="Resource-form-evaluation"
           placeholder="Input evaluation Here"
           onChange={(e) => handleFormChange(e)}
-        />
+        >
+          <option>Select from dropdown</option>{" "}
+          <option>I recommend this resource after having used it</option>
+          <option>I do not recommend this resource after having used it</option>
+          <option>I haven't used this resource but it looks promising</option>
+        </select>
         <br />
         <label htmlFor="Resource-form-justification">Justification</label>
         <textarea
@@ -148,6 +168,33 @@ export default function CreateResourcePage(
         <br />
         <button className="button">Submit</button>
       </form>
+      <input
+        placeholder="Please type in a single tag only"
+        value={newTag}
+        onChange={(e) => setNewTag(e.target.value.trim())}
+      ></input>
+      <button onClick={() => handleCreateNewTag(newTag)}>Submit new Tag</button>
+      <TagCloudCreateResource
+        setAssignedTags={setAssignedTags}
+        assignedTags={assignedTags}
+      />
+      <h3>Assigned Tags</h3>
+      <section>{allAssignedTagButtons}</section>
     </>
   );
 }
+
+/*
+Create a cloud of tags that a user can click
+onClick of a tag add that to an array of tags
+this also adds the tag button to a tag assignment area
+
+Create separate input for create a tag
+On submit add to the array of tags and th tags assigment area
+Need to specify specific input for user when creating the tag.
+Can't accept weird inputs
+
+
+
+
+*/
