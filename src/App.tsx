@@ -29,7 +29,10 @@ function App(): JSX.Element {
               />
             }
           ></Route>
-          <Route path="/study-list" element={<StudyList />}></Route>
+          <Route
+            path="/study-list"
+            element={<StudyList currentUser={currentUser} />}
+          ></Route>
         </Routes>
       </BrowserRouter>
     </>
