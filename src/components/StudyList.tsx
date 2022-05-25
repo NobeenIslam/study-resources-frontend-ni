@@ -11,6 +11,7 @@ interface StudyListProps {
 }
 
 export default function StudyList(props: StudyListProps): JSX.Element {
+  const [studylist, setStudylist] = useState<ResourceInfo[]>([]); 
 
   useEffect(() => {
     async function fetchStudyList() {
@@ -18,6 +19,7 @@ export default function StudyList(props: StudyListProps): JSX.Element {
       const studyListRes = await axios.get(
         `${baseURL}/${props.currentUser.user_id}/studylist`
       );
+
       props.setStudylist(studyListRes.data);
     }
     fetchStudyList();

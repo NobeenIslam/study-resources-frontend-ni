@@ -36,7 +36,7 @@ function App(): JSX.Element {
               />
             }
           ></Route>
-          <Route path="/study-list" element={<StudyList currentUser={currentUser} studylist={studylist} setStudylist={setStudylist} />}></Route>
+          <Route path="/study-list" element={<StudyList currentUser={currentUser} studylist={studylist} setStudylist={setStudylist} />}></Route>       
         </Routes>
       </BrowserRouter>
     </>
