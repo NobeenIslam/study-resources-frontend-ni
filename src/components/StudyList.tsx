@@ -6,10 +6,12 @@ import SingleResourceBlock from "./SingleResourceBlock";
 
 interface StudyListProps {
   currentUser: UserInterface | NoUserInterface;
+  studylist: ResourceInfo[];
+  setStudylist: (arg0: ResourceInfo[]) => void
 }
 
 export default function StudyList(props: StudyListProps): JSX.Element {
-  const [studylist, setStudylist] = useState<ResourceInfo[]>([]);
+  const [studylist, setStudylist] = useState<ResourceInfo[]>([]); 
 
   useEffect(() => {
     async function fetchStudyList() {
@@ -17,13 +19,14 @@ export default function StudyList(props: StudyListProps): JSX.Element {
       const studyListRes = await axios.get(
         `${baseURL}/${props.currentUser.user_id}/studylist`
       );
-      setStudylist(studyListRes.data);
+
+      props.setStudylist(studyListRes.data);
     }
     fetchStudyList();
   }, [props.currentUser]);
 
-  const mapOfResourcesInStudyList = studylist.map((item) => (
-    <SingleResourceBlock key={item.resource_id} data={item} />
+  const mapOfResourcesInStudyList = props.studylist.map((item) => (
+    <SingleResourceBlock key={item.resource_id} data={item} isInStudyList={true} currentUser={props.currentUser} />
   ));
 
   return (
