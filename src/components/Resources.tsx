@@ -1,9 +1,7 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { Controls } from "./Controls";
 import { NoUserInterface, ResourceInfo, UserInterface } from "./Interfaces";
 import SingleResourceBlock from "./SingleResourceBlock";
-import StudyList from "./StudyList";
+
 
 interface ResourcesProps {
   resources: ResourceInfo[];
