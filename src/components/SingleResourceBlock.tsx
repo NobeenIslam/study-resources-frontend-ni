@@ -14,7 +14,7 @@ export default function SingleResourceBlock(
 ): JSX.Element {
   async function handleAddStudyList(resource_id: number) {
     try {
-      const addResourceToSL = await axios.post(
+      await axios.post(
         `${baseURL}/users/${props.currentUser.user_id}/studylist`,
         {
           resource_id: resource_id,

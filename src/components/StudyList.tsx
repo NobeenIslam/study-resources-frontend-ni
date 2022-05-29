@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { baseURL } from "../utils/URL";
 import { NoUserInterface, ResourceInfo, UserInterface } from "./Interfaces";
 import SingleResourceBlock from "./SingleResourceBlock";
@@ -10,27 +10,30 @@ interface StudyListProps {
   setStudylist: (arg0: ResourceInfo[]) => void;
 }
 
-export default function StudyList(props: StudyListProps): JSX.Element {
-  const [studylist, setStudylist] = useState<ResourceInfo[]>([]);
-
+export default function StudyList({
+  currentUser,
+  studylist,
+  setStudylist,
+}: StudyListProps): JSX.Element {
   useEffect(() => {
     async function fetchStudyList() {
-      console.log(props.currentUser);
+      console.log(currentUser);
       const studyListRes = await axios.get(
-        `${baseURL}/${props.currentUser.user_id}/studylist`
+        `${baseURL}/${currentUser.user_id}/studylist`
       );
 
-      props.setStudylist(studyListRes.data);
+      setStudylist(studyListRes.data);
     }
     fetchStudyList();
-  }, [props.currentUser]);
+    // eslint-disable-next-line
+  }, [currentUser]);
 
-  const mapOfResourcesInStudyList = props.studylist.map((item) => (
+  const mapOfResourcesInStudyList = studylist.map((item) => (
     <SingleResourceBlock
       key={item.resource_id}
       data={item}
       isInStudyList={true}
-      currentUser={props.currentUser}
+      currentUser={currentUser}
     />
   ));
 
