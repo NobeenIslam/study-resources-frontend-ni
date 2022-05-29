@@ -7,11 +7,11 @@ import SingleResourceBlock from "./SingleResourceBlock";
 interface StudyListProps {
   currentUser: UserInterface | NoUserInterface;
   studylist: ResourceInfo[];
-  setStudylist: (arg0: ResourceInfo[]) => void
+  setStudylist: (arg0: ResourceInfo[]) => void;
 }
 
 export default function StudyList(props: StudyListProps): JSX.Element {
-  const [studylist, setStudylist] = useState<ResourceInfo[]>([]); 
+  const [studylist, setStudylist] = useState<ResourceInfo[]>([]);
 
   useEffect(() => {
     async function fetchStudyList() {
@@ -26,7 +26,12 @@ export default function StudyList(props: StudyListProps): JSX.Element {
   }, [props.currentUser]);
 
   const mapOfResourcesInStudyList = props.studylist.map((item) => (
-    <SingleResourceBlock key={item.resource_id} data={item} isInStudyList={true} currentUser={props.currentUser} />
+    <SingleResourceBlock
+      key={item.resource_id}
+      data={item}
+      isInStudyList={true}
+      currentUser={props.currentUser}
+    />
   ));
 
   return (

@@ -14,15 +14,16 @@ export default function SingleResourceBlock(
 ): JSX.Element {
   async function handleAddStudyList(resource_id: number) {
     try {
-      const addResourceToSL = await axios
-        .post(`${baseURL}/users/${props.currentUser.user_id}/studylist`, {
+      const addResourceToSL = await axios.post(
+        `${baseURL}/users/${props.currentUser.user_id}/studylist`,
+        {
           resource_id: resource_id,
-        })
+        }
+      );
     } catch (error) {
-      window.alert(error)
+      window.alert(error);
     }
   }
-
 
   return (
     <section className="singleResourceContainer">

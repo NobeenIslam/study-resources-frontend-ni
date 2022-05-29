@@ -2,7 +2,6 @@ import { Controls } from "./Controls";
 import { NoUserInterface, ResourceInfo, UserInterface } from "./Interfaces";
 import SingleResourceBlock from "./SingleResourceBlock";
 
-
 interface ResourcesProps {
   resources: ResourceInfo[];
   resourceSearch: string;
@@ -12,9 +11,10 @@ interface ResourcesProps {
 }
 
 export default function Resources(props: ResourcesProps): JSX.Element {
-
-    //filter resources according to study list entries
-  const filteredResourcesSL = props.resources.filter((resource) => !props.studylist.includes(resource))
+  //filter resources according to study list entries
+  const filteredResourcesSL = props.resources.filter(
+    (resource) => !props.studylist.includes(resource)
+  );
 
   const resourcesBlocks: JSX.Element[] = filteredResourcesSL
     .slice(0, 5)

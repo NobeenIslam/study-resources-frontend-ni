@@ -9,7 +9,7 @@ import { TagCloud } from "./TagCloud";
 interface MainPageProps {
   setCurrentUser: (arg0: UserInterface) => void;
   currentUser: UserInterface | NoUserInterface;
-  studylist: ResourceInfo[]
+  studylist: ResourceInfo[];
 }
 
 export default function MainPage(props: MainPageProps): JSX.Element {
