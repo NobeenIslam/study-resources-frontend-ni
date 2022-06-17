@@ -21,9 +21,7 @@ export default function Resources(props: ResourcesProps): JSX.Element {
 
   return (
     <main>
-      <section className="d-flex flex-row flex-wrap ms-3 gap-3">
-        {resourcesBlocks}
-      </section>
+      <section className="resourcesBlocksContainer">{resourcesBlocks}</section>
     </main>
   );
 }

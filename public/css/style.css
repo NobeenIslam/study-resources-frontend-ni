@@ -1,29 +1,54 @@
+/* Wanted 3 cards per row. Had to set width but couldn't do inline with BootStrap */
+.resourcesBlocksContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  justify-content: center;
+}
+
+.resourceBlockWidth {
+  width: 30%;
+}
+
+@media (max-width: 1000px) {
+  .resourceBlockWidth {
+    width: 45%;
+  }
+}
+
+@media (max-width: 700px) {
+  .resourceBlockWidth {
+    width: 100%;
+  }
+}
 
 /* To syle router links properly */
 a:link {
-    text-decoration: none;
-  }
-  
-  a:visited {
-    text-decoration: none;
-  }
-  
-  a:hover {
-    text-decoration: underline;
-  }
-  
-  a:active {
-    text-decoration: underline;
-  }
+  text-decoration: none;
+}
 
-  .red{
-    background-color: red;
-  }
+a:visited {
+  text-decoration: none;
+}
 
-  .green{
-    background-color: green
-  }
+a:hover {
+  text-decoration: underline;
+}
 
-  .orange{
-    background-color: orange
-  }
+a:active {
+  text-decoration: underline;
+}
+
+.red {
+  background-color: red;
+}
+
+.green {
+  background-color: green;
+}
+
+.orange {
+  background-color: orange;
+}

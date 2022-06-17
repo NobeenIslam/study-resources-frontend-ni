@@ -32,7 +32,7 @@ export default function SingleResourceBlock(
   ));
 
   return (
-    <section className="card border-dark mb-3">
+    <section className="card border-dark mb-3 resourceBlockWidth">
       <div className="card-header">Created By: {props.data.origin}</div>
       {/* ///////////// */}
       <div className="card-body d-flex flex-row ">
