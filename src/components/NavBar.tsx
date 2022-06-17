@@ -47,11 +47,6 @@ export default function NavBar(props: NavBarProps): JSX.Element {
   //wait until currentUser is loaded before rendering when redirected to other pages
   else {
     return (
-      // <section className = "navbar navbar-default navbar-light bg-light">
-      //   <nav className = "container">
-
-      //   </nav>
-      // </section>
       <nav className="navbar navbar-expand-sm navbar-light bg-light">
         <div className="container-fluid">
           <div className="navbar-nav">
@@ -71,7 +66,7 @@ export default function NavBar(props: NavBarProps): JSX.Element {
               onClick={() => props.setCurrentUser({ user_id: "not-signed-in" })}
               state={{ userData: props.currentUser }}
             >
-              <button className="nav-link btn btn-link ">
+              <button className="btn btn-danger ">
                 {" "}
                 Sign-out from{" "}
                 {props.currentUser && props.currentUser.name
