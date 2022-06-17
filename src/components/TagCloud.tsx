@@ -55,7 +55,7 @@ export function TagCloud(props: TagCloudInt): JSX.Element {
 
   return (
     <>
-      <h1 className="text-center">Tag Cloud</h1>
+      <h4 className="text-center mt-2">Search by Tag</h4>
       <section className="d-flex flex-row justify-content-center">
         {tagCloud}
       </section>
