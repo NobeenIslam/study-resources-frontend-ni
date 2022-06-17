@@ -22,9 +22,9 @@ export default function NavBar(props: NavBarProps): JSX.Element {
 
   if (props.currentUser.user_id === "not-signed-in") {
     return (
-      <section className = "navbar navbar-light bg-light">
+      <section className="navbar navbar-light bg-light">
         <select
-          className = "m-2 btn btn-primary dropdown-toggle"
+          className="m-2 btn btn-primary dropdown-toggle"
           value={props.currentUser.user_id}
           onChange={(e) => {
             const selectedId = parseInt(e.target.value);
@@ -47,29 +47,41 @@ export default function NavBar(props: NavBarProps): JSX.Element {
   //wait until currentUser is loaded before rendering when redirected to other pages
   else {
     return (
-      <section className = "navbar navbar-light bg-light">
-        <nav className = "container">
-          <Link to={"/"} state={{ userData: props.currentUser }}>
-            Home
-          </Link>
-          <Link to={"/create"} state={{ userData: props.currentUser }}>
-            Create Resource
-          </Link>
-          <Link to={"/study-list"} state={{ userData: props.currentUser }}>
-            My Study List
-          </Link>
-          <Link
-            to={"/"}
-            onClick={() => props.setCurrentUser({ user_id: "not-signed-in" })}
-            state={{ userData: props.currentUser }}
-          >
-            Sign-out from{" "}
-            {props.currentUser && props.currentUser.name
-              ? props.currentUser.name
-              : "Not loaded yet"}
-          </Link>
-        </nav>
-      </section>
+      // <section className = "navbar navbar-default navbar-light bg-light">
+      //   <nav className = "container">
+
+      //   </nav>
+      // </section>
+      <nav className="navbar navbar-expand-sm navbar-light bg-light">
+        <div className="container-fluid">
+          <div className="navbar-nav">
+            <Link to={"/"} state={{ userData: props.currentUser }}>
+              <button className="nav-link btn">Home</button>
+            </Link>
+            <Link to={"/create"} state={{ userData: props.currentUser }}>
+              <button className="nav-link btn">Create Resource</button>
+            </Link>
+            <Link to={"/study-list"} state={{ userData: props.currentUser }}>
+              <button className="nav-link btn"> My Study List</button>
+            </Link>
+          </div>
+          <div className="navbar-nav ms-auto">
+            <Link
+              to={"/"}
+              onClick={() => props.setCurrentUser({ user_id: "not-signed-in" })}
+              state={{ userData: props.currentUser }}
+            >
+              <button className="nav-link btn btn-link ">
+                {" "}
+                Sign-out from{" "}
+                {props.currentUser && props.currentUser.name
+                  ? props.currentUser.name
+                  : "Not loaded yet"}
+              </button>
+            </Link>
+          </div>
+        </div>
+      </nav>
     );
   }
 }
