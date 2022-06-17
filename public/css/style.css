@@ -1,30 +1,4 @@
 
-.resourceListContainer{
-
-    display: flex;
-    flex-direction: column;
-    padding: 50px
-}
-
-.singleResourceContainer{
-
-    display: flex;
-    flex-direction: column;
-    border: 5px solid #050C66;
-    border-radius: 1%;
-    padding: 10px;
-    margin: 10px auto;
-    width: 70%;
-    box-shadow: 10px 10px #000000;
-}
-
-.votesContainer{
-    align-items: center;
-    justify-content: space-evenly;
-    display: inline-flex;
-}
-
-
 /* To syle router links properly */
 a:link {
     text-decoration: none;

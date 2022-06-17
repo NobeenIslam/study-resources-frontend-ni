@@ -36,7 +36,7 @@ export default function SingleResourceBlock(
       <div className="card-header">Created By: {props.data.origin}</div>
       {/* ///////////// */}
       <div className="card-body d-flex flex-row ">
-        <div className="d-flex flex-column me-auto flex-grow-1 ">
+        <div className="d-flex flex-column me-auto flex-grow-1">
           {" "}
           <h2 className="card-title">{props.data.title}</h2>
           {/* TEXT */}
@@ -48,7 +48,7 @@ export default function SingleResourceBlock(
           {props.data.evaluation && <p>{props.data.evaluation}</p>}
           <h6 className="card-subtitle text-muted">Justification</h6>
           {props.data.justification && <p>{props.data.justification}</p>}{" "}
-          <div className="d-flex flex-column">
+          <div className="d-flex flex-column mt-auto ">
             {/* TAGS */}
             <section className="d-flex flex-row justify-content-center flex-wrap">
               {resourcesTags}
@@ -74,7 +74,7 @@ export default function SingleResourceBlock(
           </div>
         </div>
         {/* Voting */}
-        <section className="d-flex flex-column align-items-center justify-content-evenly">
+        <section className="d-flex flex-column align-items-center justify-content-evenly ms-3">
           <p>({props.data.votesInfo.upVotes})</p>
           <button>👍</button>
           <p>({props.data.votesInfo.totalVotes})</p>
