@@ -46,8 +46,6 @@ export default function MainPage(props: MainPageProps): JSX.Element {
     isUserSearching = true;
   }
 
-  console.log(isUserSearching);
-
   return (
     <main>
       <h1 className="text-center my-4">Resources for you:</h1>

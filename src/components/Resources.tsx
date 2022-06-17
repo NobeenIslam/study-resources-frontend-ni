@@ -10,11 +10,7 @@ interface ResourcesProps {
 export default function Resources(props: ResourcesProps): JSX.Element {
   //filter resources according to study list entries
 
-  const filteredResourcesSL = props.resources.filter(
-    (resource) => !props.studylist.includes(resource)
-  );
-
-  const resourcesBlocks: JSX.Element[] = filteredResourcesSL.map((resource) => (
+  const resourcesBlocks: JSX.Element[] = props.resources.map((resource) => (
     <SingleResourceBlock
       key={resource.resource_id}
       data={resource}
