@@ -22,7 +22,7 @@ export default function NavBar(props: NavBarProps): JSX.Element {
 
   if (props.currentUser.user_id === "not-signed-in") {
     return (
-      <section className="navbar navbar-light bg-light">
+      <section className="navbar navbar-dark bg-dark">
         <select
           className="m-2 btn btn-primary dropdown-toggle"
           value={props.currentUser.user_id}
@@ -47,7 +47,7 @@ export default function NavBar(props: NavBarProps): JSX.Element {
   //wait until currentUser is loaded before rendering when redirected to other pages
   else {
     return (
-      <nav className="navbar navbar-expand-sm navbar-light bg-light">
+      <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
         <div className="container-fluid">
           <div className="navbar-nav">
             <Link to={"/"} state={{ userData: props.currentUser }}>
