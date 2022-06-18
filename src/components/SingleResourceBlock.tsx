@@ -46,13 +46,11 @@ export default function SingleResourceBlock(
           {props.data.recommended_week && <p>{props.data.recommended_week}</p>}
           <h6 className="card-subtitle text-muted">Usage:</h6>
           {props.data.evaluation && <p>{props.data.evaluation}</p>}
-          <h6 className="card-subtitle text-muted">Justification</h6>
+          <h6 className="card-subtitle text-muted">Justification:</h6>
           {props.data.justification && <p>{props.data.justification}</p>}{" "}
           <div className="d-flex flex-column mt-auto ">
             {/* TAGS */}
-            <section className="d-flex flex-row justify-content-center flex-wrap">
-              {resourcesTags}
-            </section>
+            <section className="tags--container">{resourcesTags}</section>
             {/* Buttons */}
             <section className="d-flex flex-column mx-auto mb-0 w-75">
               <button

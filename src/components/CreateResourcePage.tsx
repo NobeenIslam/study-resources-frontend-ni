@@ -64,7 +64,7 @@ export default function CreateResourcePage(
   const allAssignedTagButtons = allAssignedTagObjects.map((tagObj) => (
     <button
       key={tagObj.id}
-      className="tagElement1"
+      className="btn btn-warning"
       onClick={() => {
         const assignedTagsCopy = [...assignedTags];
         assignedTagsCopy.splice(tagObj.id, 1);
@@ -77,97 +77,137 @@ export default function CreateResourcePage(
 
   return (
     <>
-      <p>Hello {userData.name}</p>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="Resource-form-title">Title</label>
-        <input
-          className="form--input"
-          name="title"
-          value={formData.title}
-          id="Resource-form-title"
-          placeholder="Title"
-          type="text"
-          onChange={(e) => handleFormChange(e)}
-        />
-        <br />
-        <label htmlFor="Resource-form-Description">Description</label>
-        <textarea
-          className="form--descriptionArea"
-          name="description"
-          value={formData.description}
-          id="Resource-form-description"
-          placeholder="Input Description"
-          onChange={(e) => handleFormChange(e)}
-        />
-        <br />
-        <br />
-        <label htmlFor="Resource-form-url">URL</label>
-        <textarea
-          className="form--urlarea"
-          name="url"
-          value={formData.url}
-          id="Resource-form-url"
-          placeholder="Paste URL Here"
-          onChange={(e) => handleFormChange(e)}
-        />
-        <br />
-        <label htmlFor="Resource-form-origin">Origin</label>
-        <textarea
-          className="form--originarea"
-          name="origin"
-          value={formData.origin}
-          id="Resource-form-origin"
-          placeholder="Input Origin Here"
-          onChange={(e) => handleFormChange(e)}
-        />
-        <br />
-        <label htmlFor="Resource-form-content-type">content Type</label>
-        <textarea
-          className="form--content-type"
-          name="content_type"
-          value={formData.content_type}
-          id="Resource-form-content-type"
-          placeholder="Input content-type Here"
-          onChange={(e) => handleFormChange(e)}
-        />
-        <br />
-        <label htmlFor="Resource-form-recommended-week">Recommended Week</label>
-        <textarea
-          className="form--recommended-week"
-          name="recommended_week"
-          value={formData.recommended_week}
-          id="Resource-form-recommended-week"
-          placeholder="Input recommended-week Here"
-          onChange={(e) => handleFormChange(e)}
-        />
-        <br />
-        <label htmlFor="Resource-form-evaluation">Evaluation</label>
-        <select
-          className="form--evaluation"
-          name="evaluation"
-          defaultValue={"No evaluation selected"}
-          id="Resource-form-evaluation"
-          placeholder="Input evaluation Here"
-          onChange={(e) => handleFormChange(e)}
-        >
-          <option>Select from dropdown</option>{" "}
-          <option>I recommend this resource after having used it</option>
-          <option>I do not recommend this resource after having used it</option>
-          <option>I haven't used this resource but it looks promising</option>
-        </select>
-        <br />
-        <label htmlFor="Resource-form-justification">Justification</label>
-        <textarea
-          className="form--justification"
-          name="justification"
-          value={formData.justification}
-          id="Resource-form-justification"
-          placeholder="Input justification Here"
-          onChange={(e) => handleFormChange(e)}
-        />
-        <br />
-        <button className="button">Submit</button>
-      </form>
+      <h2 className="text-center m-3">Create a Resource</h2>
+      <div className="createResourceForm">
+        {" "}
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="Resource-form-title" className="text-muted fw-bolder">
+            Title
+          </label>
+          <input
+            className="form--input"
+            name="title"
+            value={formData.title}
+            id="Resource-form-title"
+            placeholder="Title"
+            type="text"
+            onChange={(e) => handleFormChange(e)}
+          />
+          <br />
+          <label
+            htmlFor="Resource-form-Description"
+            className="text-muted fw-bolder"
+          >
+            Description
+          </label>
+          <textarea
+            className="form--textArea"
+            name="description"
+            value={formData.description}
+            id="Resource-form-description"
+            placeholder="Input Description"
+            onChange={(e) => handleFormChange(e)}
+          />
+          <br />
+          <br />
+          <label htmlFor="Resource-form-url" className="text-muted fw-bolder">
+            URL
+          </label>
+          <textarea
+            className="form--input"
+            name="url"
+            value={formData.url}
+            id="Resource-form-url"
+            placeholder="Paste URL Here"
+            onChange={(e) => handleFormChange(e)}
+          />
+          <br />
+          <label
+            htmlFor="Resource-form-origin"
+            className="text-muted fw-bolder"
+          >
+            Origin
+          </label>
+          <textarea
+            className="form--input"
+            name="origin"
+            value={formData.origin}
+            id="Resource-form-origin"
+            placeholder="Input Origin Here"
+            onChange={(e) => handleFormChange(e)}
+          />
+          <br />
+          <label
+            htmlFor="Resource-form-content-type"
+            className="text-muted fw-bolder"
+          >
+            Content Type
+          </label>
+          <textarea
+            className="form--input"
+            name="content_type"
+            value={formData.content_type}
+            id="Resource-form-content-type"
+            placeholder="Input content-type Here"
+            onChange={(e) => handleFormChange(e)}
+          />
+          <br />
+          <label
+            htmlFor="Resource-form-recommended-week"
+            className="text-muted fw-bolder"
+          >
+            Recommended Week
+          </label>
+          <textarea
+            className="form--input"
+            name="recommended_week"
+            value={formData.recommended_week}
+            id="Resource-form-recommended-week"
+            placeholder="Input recommended-week Here"
+            onChange={(e) => handleFormChange(e)}
+          />
+          <br />
+          <label
+            htmlFor="Resource-form-evaluation"
+            className="text-muted fw-bolder"
+          >
+            Evaluation
+          </label>
+          <select
+            className="form--dropdown"
+            name="evaluation"
+            defaultValue={"No evaluation selected"}
+            id="Resource-form-evaluation"
+            placeholder="Input evaluation Here"
+            onChange={(e) => handleFormChange(e)}
+          >
+            <option>Select from dropdown</option>{" "}
+            <option>I recommend this resource after having used it</option>
+            <option>
+              I do not recommend this resource after having used it
+            </option>
+            <option>I haven't used this resource but it looks promising</option>
+          </select>
+          <br />
+          <label
+            htmlFor="Resource-form-justification"
+            className="text-muted fw-bolder"
+          >
+            Justification
+          </label>
+          <textarea
+            className="form--textArea"
+            name="justification"
+            value={formData.justification}
+            id="Resource-form-justification"
+            placeholder="Input justification Here"
+            onChange={(e) => handleFormChange(e)}
+          />
+          <br />
+          <button className="btn btn-success">Submit</button>
+        </form>
+      </div>
+
       <input
         placeholder="Please type in a single tag only"
         value={newTag}
@@ -179,7 +219,7 @@ export default function CreateResourcePage(
         assignedTags={assignedTags}
       />
       <h3>Assigned Tags</h3>
-      <section>{allAssignedTagButtons}</section>
+      <section className="tags--container">{allAssignedTagButtons}</section>
     </>
   );
 }

@@ -39,7 +39,7 @@ export function TagCloudCreateResource(
         onClick={() => {
           handleClick(tag.name);
         }}
-        className={"tagElement0"}
+        className="btn btn-primary"
         key={tag.tag_id}
       >
         {tag.name}
@@ -50,7 +50,7 @@ export function TagCloudCreateResource(
   return (
     <>
       <h3>Click tag to assign</h3>
-      <section className="tagCloudContainer">{tagCloud}</section>
+      <section className="tags--container">{tagCloud}</section>
     </>
   );
 }
