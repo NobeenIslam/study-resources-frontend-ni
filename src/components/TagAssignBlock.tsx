@@ -2,7 +2,7 @@ import { useState } from "react";
 import { tagArrayToObject } from "../utils/tagArrayToObject";
 import { TagCloudCreateResource } from "./TagCloudCreateResource";
 
-interface TagAssignBlock {
+interface TagAssignBlockProps {
   assignedTags: string[];
   setAssignedTags: (arg0: string[]) => void;
 }
@@ -10,7 +10,7 @@ interface TagAssignBlock {
 export function TagAssignBlock({
   assignedTags,
   setAssignedTags,
-}: TagAssignBlock): JSX.Element {
+}: TagAssignBlockProps): JSX.Element {
   const [newTag, setNewTag] = useState<string>("");
 
   function handleCreateNewTag(newTag: string): void {

@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 import { ResourceForm } from "./Interfaces";
 import { useLocation } from "react-router-dom";
 import { UserInterface, NoUserInterface } from "./Interfaces";
-import { TagCloudCreateResource } from "./TagCloudCreateResource";
-import { tagArrayToObject } from "../utils/tagArrayToObject";
 import axios from "axios";
 import { baseURL } from "../utils/URL";
 import { TagAssignBlock } from "./TagAssignBlock";
