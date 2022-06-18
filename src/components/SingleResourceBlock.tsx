@@ -25,6 +25,16 @@ export default function SingleResourceBlock(
     }
   }
 
+  async function handleRemoveFromStudyList(resource_id: number) {
+    try {
+      await axios.delete(
+        `${baseURL}/users/${props.currentUser.user_id}/studylist/${resource_id}`
+      );
+    } catch (error) {
+      window.alert(error);
+    }
+  }
+
   const resourcesTags = props.data.tags.map((tagInfo) => (
     <div className="btn btn-warning m-2" key={tagInfo.tag_id}>
       {tagInfo.tag_name}
@@ -59,15 +69,22 @@ export default function SingleResourceBlock(
               >
                 Go To {props.data.content_type}
               </button>
-              {props.isInStudyList === false &&
-                typeof props.currentUser.user_id === "number" && (
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => handleAddStudyList(props.data.resource_id)}
-                  >
-                    Add to Study List
-                  </button>
-                )}
+              {props.isInStudyList &&
+              props.currentUser.user_id !== "not-signed-in" ? (
+                <button 
+                className="btn btn-danger"
+                onClick = {()=> handleRemoveFromStudyList(props.data.resource_id)}
+                >
+                  Remove from Study List
+                </button>
+              ) : (
+                <button
+                  className="btn btn-primary"
+                  onClick={() => handleAddStudyList(props.data.resource_id)}
+                >
+                  Add to Study List
+                </button>
+              )}
             </section>
           </div>
         </div>
