@@ -11,6 +11,8 @@ interface MainPageProps {
   setCurrentUser: (arg0: UserInterface) => void;
   currentUser: UserInterface | NoUserInterface;
   studylist: ResourceInfo[];
+  fetchStudyListToggle: boolean;
+  setFetchStudyListToggle: (arg0: boolean) => void;
 }
 
 export default function MainPage(props: MainPageProps): JSX.Element {
@@ -66,6 +68,8 @@ export default function MainPage(props: MainPageProps): JSX.Element {
         resources={filteredForSearch}
         currentUser={props.currentUser}
         studylist={props.studylist}
+        fetchStudyListToggle={props.fetchStudyListToggle}
+        setFetchStudyListToggle={props.setFetchStudyListToggle}
       />
     </main>
   );
