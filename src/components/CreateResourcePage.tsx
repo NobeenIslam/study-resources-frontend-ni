@@ -6,6 +6,7 @@ import { TagCloudCreateResource } from "./TagCloudCreateResource";
 import { tagArrayToObject } from "../utils/tagArrayToObject";
 import axios from "axios";
 import { baseURL } from "../utils/URL";
+import { TagAssignBlock } from "./TagAssignBlock";
 
 interface CreateResourcePageProps {
   currentUser: UserInterface | NoUserInterface;
@@ -34,7 +35,6 @@ export default function CreateResourcePage(
   });
 
   const [assignedTags, setAssignedTags] = useState<string[]>([]);
-  const [newTag, setNewTag] = useState<string>("");
 
   function handleFormChange(
     event:
@@ -48,32 +48,12 @@ export default function CreateResourcePage(
     });
   }
 
-  function handleCreateNewTag(newTag: string): void {
-    setAssignedTags([...assignedTags, newTag]);
-    setNewTag("");
-  }
-
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     formData["tags"] = assignedTags;
     console.log("This is form data:", formData);
     await axios.post(baseURL + "/resources", formData);
   }
-
-  const allAssignedTagObjects = tagArrayToObject(assignedTags);
-  const allAssignedTagButtons = allAssignedTagObjects.map((tagObj) => (
-    <button
-      key={tagObj.id}
-      className="btn btn-warning"
-      onClick={() => {
-        const assignedTagsCopy = [...assignedTags];
-        assignedTagsCopy.splice(tagObj.id, 1);
-        setAssignedTags(assignedTagsCopy);
-      }}
-    >
-      {tagObj.tagName}
-    </button>
-  ));
 
   return (
     <>
@@ -204,39 +184,10 @@ export default function CreateResourcePage(
             onChange={(e) => handleFormChange(e)}
           />
           <br />
-          {/* TAG ASSIGNMENT */}
-          <h6 className="text-muted fw-bolder">Add a new tag:</h6>
-          <div className="d-flex flex-row justify-content-start mb-4">
-            {" "}
-            <input
-              className="form--input me-2"
-              placeholder="Input one tag"
-              value={newTag}
-              onChange={(e) => setNewTag(e.target.value.trim())}
-            ></input>
-            <button
-              className="btn btn-info"
-              onClick={() => handleCreateNewTag(newTag)}
-            >
-              Add
-            </button>
-          </div>
-
-          <h6 className="text-muted fw-bolder">Click tag to assign:</h6>
-          <TagCloudCreateResource
-            setAssignedTags={setAssignedTags}
+          <TagAssignBlock
             assignedTags={assignedTags}
+            setAssignedTags={setAssignedTags}
           />
-          {assignedTags.length > 0 && (
-            <div>
-              {" "}
-              <h6 className="text-muted fw-bolder">Assigned Tags:</h6>
-              <section className="tags--container mb-4">
-                {allAssignedTagButtons}
-              </section>
-            </div>
-          )}
-
           <button className="btn btn-success">Submit</button>
         </form>
       </div>
