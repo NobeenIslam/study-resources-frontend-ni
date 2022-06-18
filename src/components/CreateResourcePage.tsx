@@ -204,22 +204,42 @@ export default function CreateResourcePage(
             onChange={(e) => handleFormChange(e)}
           />
           <br />
+          {/* TAG ASSIGNMENT */}
+          <h6 className="text-muted fw-bolder">Add a new tag:</h6>
+          <div className="d-flex flex-row justify-content-start mb-4">
+            {" "}
+            <input
+              className="form--input me-2"
+              placeholder="Input one tag"
+              value={newTag}
+              onChange={(e) => setNewTag(e.target.value.trim())}
+            ></input>
+            <button
+              className="btn btn-info"
+              onClick={() => handleCreateNewTag(newTag)}
+            >
+              Add
+            </button>
+          </div>
+
+          <h6 className="text-muted fw-bolder">Click tag to assign:</h6>
+          <TagCloudCreateResource
+            setAssignedTags={setAssignedTags}
+            assignedTags={assignedTags}
+          />
+          {assignedTags.length > 0 && (
+            <div>
+              {" "}
+              <h6 className="text-muted fw-bolder">Assigned Tags:</h6>
+              <section className="tags--container mb-4">
+                {allAssignedTagButtons}
+              </section>
+            </div>
+          )}
+
           <button className="btn btn-success">Submit</button>
         </form>
       </div>
-
-      <input
-        placeholder="Please type in a single tag only"
-        value={newTag}
-        onChange={(e) => setNewTag(e.target.value.trim())}
-      ></input>
-      <button onClick={() => handleCreateNewTag(newTag)}>Submit new Tag</button>
-      <TagCloudCreateResource
-        setAssignedTags={setAssignedTags}
-        assignedTags={assignedTags}
-      />
-      <h3>Assigned Tags</h3>
-      <section className="tags--container">{allAssignedTagButtons}</section>
     </>
   );
 }

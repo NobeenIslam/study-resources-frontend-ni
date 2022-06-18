@@ -49,8 +49,7 @@ export function TagCloudCreateResource(
 
   return (
     <>
-      <h3>Click tag to assign</h3>
-      <section className="tags--container">{tagCloud}</section>
+      <section className="tags--container mb-4">{tagCloud}</section>
     </>
   );
 }
