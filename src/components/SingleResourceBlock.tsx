@@ -8,6 +8,8 @@ interface SingleResourceBlockProps {
   data: ResourceInfo;
   isInStudyList: boolean;
   currentUser: UserInterface | NoUserInterface;
+  fetchStudyListToggle: boolean;
+  setFetchStudyListToggle: (arg0: boolean) => void;
 }
 
 export default function SingleResourceBlock(
@@ -31,6 +33,8 @@ export default function SingleResourceBlock(
               data={props.data}
               isInStudyList={props.isInStudyList}
               currentUser={props.currentUser}
+              fetchStudyListToggle={props.fetchStudyListToggle}
+              setFetchStudyListToggle={props.setFetchStudyListToggle}
             />
           </div>
         </div>

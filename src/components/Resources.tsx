@@ -5,6 +5,8 @@ interface ResourcesProps {
   resources: ResourceInfo[];
   currentUser: UserInterface | NoUserInterface;
   studylist: ResourceInfo[];
+  fetchStudyListToggle: boolean;
+  setFetchStudyListToggle: (arg0: boolean) => void;
 }
 
 export default function Resources(props: ResourcesProps): JSX.Element {
@@ -34,6 +36,8 @@ export default function Resources(props: ResourcesProps): JSX.Element {
       data={resource}
       isInStudyList={isInStudyList(resource, props.studylist)}
       currentUser={props.currentUser}
+      fetchStudyListToggle={props.fetchStudyListToggle}
+      setFetchStudyListToggle={props.setFetchStudyListToggle}
     />
   ));
 

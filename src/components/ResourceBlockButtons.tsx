@@ -6,6 +6,8 @@ interface ResourceBlockButtonsProps {
   data: ResourceInfo;
   isInStudyList: boolean;
   currentUser: UserInterface | NoUserInterface;
+  fetchStudyListToggle: boolean;
+  setFetchStudyListToggle: (arg0: boolean) => void;
 }
 
 export function ResourceBlockButtons(
@@ -19,6 +21,7 @@ export function ResourceBlockButtons(
           resource_id: resource_id,
         }
       );
+      props.setFetchStudyListToggle(!props.fetchStudyListToggle);
     } catch (error) {
       window.alert(error);
     }
@@ -29,6 +32,7 @@ export function ResourceBlockButtons(
       await axios.delete(
         `${baseURL}/users/${props.currentUser.user_id}/studylist/${resource_id}`
       );
+      props.setFetchStudyListToggle(!props.fetchStudyListToggle);
     } catch (error) {
       window.alert(error);
     }

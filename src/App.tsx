@@ -22,7 +22,7 @@ function App(): JSX.Element {
 
   useEffect(() => {
     async function fetchStudyList() {
-      //console.log(currentUser);
+      console.log("Fetching study list");
       const studyListRes = await axios.get(
         `${baseURL}/${currentUser.user_id}/studylist`
       );
@@ -47,6 +47,8 @@ function App(): JSX.Element {
                 setCurrentUser={setCurrentUser}
                 currentUser={currentUser}
                 studylist={studylist}
+                fetchStudyListToggle={fetchStudyListToggle}
+                setFetchStudyListToggle={setFetchStudyListToggle}
               />
             }
           ></Route>
@@ -66,6 +68,8 @@ function App(): JSX.Element {
                 currentUser={currentUser}
                 studylist={studylist}
                 setStudylist={setStudylist}
+                fetchStudyListToggle={fetchStudyListToggle}
+                setFetchStudyListToggle={setFetchStudyListToggle}
               />
             }
           ></Route>
