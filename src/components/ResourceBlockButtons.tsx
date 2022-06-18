@@ -34,6 +34,19 @@ export function ResourceBlockButtons(
     }
   }
 
+  if (props.currentUser.user_id === "not-signed-in") {
+    return (
+      <section className="d-flex flex-column mx-auto mb-0 w-75">
+        <button
+          className="btn btn-info"
+          onClick={() => window.open(props.data.url)}
+        >
+          Go To {props.data.content_type}
+        </button>
+      </section>
+    );
+  }
+
   return (
     <section className="d-flex flex-column mx-auto mb-0 w-75">
       <button
@@ -42,7 +55,7 @@ export function ResourceBlockButtons(
       >
         Go To {props.data.content_type}
       </button>
-      {props.isInStudyList && props.currentUser.user_id !== "not-signed-in" ? (
+      {props.isInStudyList ? (
         <button
           className="btn btn-danger"
           onClick={() => handleRemoveFromStudyList(props.data.resource_id)}

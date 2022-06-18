@@ -15,19 +15,7 @@ export default function StudyList({
   studylist,
   setStudylist,
 }: StudyListProps): JSX.Element {
-  useEffect(() => {
-    async function fetchStudyList() {
-      console.log(currentUser);
-      const studyListRes = await axios.get(
-        `${baseURL}/${currentUser.user_id}/studylist`
-      );
-
-      setStudylist(studyListRes.data);
-    }
-    fetchStudyList();
-    // eslint-disable-next-line
-  }, [currentUser]);
-
+  console.log(studylist);
   const mapOfResourcesInStudyList = studylist.map((item) => (
     <SingleResourceBlock
       key={item.resource_id}

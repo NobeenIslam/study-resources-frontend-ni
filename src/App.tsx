@@ -1,4 +1,5 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CreateResourcePage from "./components/CreateResourcePage";
 import {
@@ -9,12 +10,30 @@ import {
 import MainPage from "./components/MainPage";
 import NavBar from "./components/NavBar";
 import StudyList from "./components/StudyList";
+import { baseURL } from "./utils/URL";
 
 function App(): JSX.Element {
   const [currentUser, setCurrentUser] = useState<
     UserInterface | NoUserInterface
   >({ user_id: "not-signed-in" });
   const [studylist, setStudylist] = useState<ResourceInfo[]>([]);
+  const [fetchStudyListToggle, setFetchStudyListToggle] =
+    useState<boolean>(false);
+
+  useEffect(() => {
+    async function fetchStudyList() {
+      //console.log(currentUser);
+      const studyListRes = await axios.get(
+        `${baseURL}/${currentUser.user_id}/studylist`
+      );
+
+      setStudylist(studyListRes.data);
+    }
+    if (currentUser.user_id !== "not-signed-in") {
+      fetchStudyList();
+    }
+    // eslint-disable-next-line
+  }, [currentUser, fetchStudyListToggle]);
 
   return (
     <>
