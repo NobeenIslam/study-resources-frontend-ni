@@ -2,10 +2,9 @@ import { useState, useEffect } from "react";
 import { ResourceForm } from "./Interfaces";
 import { useLocation } from "react-router-dom";
 import { UserInterface, NoUserInterface } from "./Interfaces";
-import { TagCloudCreateResource } from "./TagCloudCreateResource";
-import { tagArrayToObject } from "../utils/tagArrayToObject";
 import axios from "axios";
 import { baseURL } from "../utils/URL";
+import { TagAssignBlock } from "./TagAssignBlock";
 
 interface CreateResourcePageProps {
   currentUser: UserInterface | NoUserInterface;
@@ -34,7 +33,6 @@ export default function CreateResourcePage(
   });
 
   const [assignedTags, setAssignedTags] = useState<string[]>([]);
-  const [newTag, setNewTag] = useState<string>("");
 
   function handleFormChange(
     event:
@@ -48,11 +46,6 @@ export default function CreateResourcePage(
     });
   }
 
-  function handleCreateNewTag(newTag: string): void {
-    setAssignedTags([...assignedTags, newTag]);
-    setNewTag("");
-  }
-
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     formData["tags"] = assignedTags;
@@ -60,126 +53,142 @@ export default function CreateResourcePage(
     await axios.post(baseURL + "/resources", formData);
   }
 
-  const allAssignedTagObjects = tagArrayToObject(assignedTags);
-  const allAssignedTagButtons = allAssignedTagObjects.map((tagObj) => (
-    <button
-      key={tagObj.id}
-      className="tagElement1"
-      onClick={() => {
-        const assignedTagsCopy = [...assignedTags];
-        assignedTagsCopy.splice(tagObj.id, 1);
-        setAssignedTags(assignedTagsCopy);
-      }}
-    >
-      {tagObj.tagName}
-    </button>
-  ));
-
   return (
     <>
-      <p>Hello {userData.name}</p>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="Resource-form-title">Title</label>
-        <input
-          className="form--input"
-          name="title"
-          value={formData.title}
-          id="Resource-form-title"
-          placeholder="Title"
-          type="text"
-          onChange={(e) => handleFormChange(e)}
-        />
-        <br />
-        <label htmlFor="Resource-form-Description">Description</label>
-        <textarea
-          className="form--descriptionArea"
-          name="description"
-          value={formData.description}
-          id="Resource-form-description"
-          placeholder="Input Description"
-          onChange={(e) => handleFormChange(e)}
-        />
-        <br />
-        <br />
-        <label htmlFor="Resource-form-url">URL</label>
-        <textarea
-          className="form--urlarea"
-          name="url"
-          value={formData.url}
-          id="Resource-form-url"
-          placeholder="Paste URL Here"
-          onChange={(e) => handleFormChange(e)}
-        />
-        <br />
-        <label htmlFor="Resource-form-origin">Origin</label>
-        <textarea
-          className="form--originarea"
-          name="origin"
-          value={formData.origin}
-          id="Resource-form-origin"
-          placeholder="Input Origin Here"
-          onChange={(e) => handleFormChange(e)}
-        />
-        <br />
-        <label htmlFor="Resource-form-content-type">content Type</label>
-        <textarea
-          className="form--content-type"
-          name="content_type"
-          value={formData.content_type}
-          id="Resource-form-content-type"
-          placeholder="Input content-type Here"
-          onChange={(e) => handleFormChange(e)}
-        />
-        <br />
-        <label htmlFor="Resource-form-recommended-week">Recommended Week</label>
-        <textarea
-          className="form--recommended-week"
-          name="recommended_week"
-          value={formData.recommended_week}
-          id="Resource-form-recommended-week"
-          placeholder="Input recommended-week Here"
-          onChange={(e) => handleFormChange(e)}
-        />
-        <br />
-        <label htmlFor="Resource-form-evaluation">Evaluation</label>
-        <select
-          className="form--evaluation"
-          name="evaluation"
-          defaultValue={"No evaluation selected"}
-          id="Resource-form-evaluation"
-          placeholder="Input evaluation Here"
-          onChange={(e) => handleFormChange(e)}
-        >
-          <option>Select from dropdown</option>{" "}
-          <option>I recommend this resource after having used it</option>
-          <option>I do not recommend this resource after having used it</option>
-          <option>I haven't used this resource but it looks promising</option>
-        </select>
-        <br />
-        <label htmlFor="Resource-form-justification">Justification</label>
-        <textarea
-          className="form--justification"
-          name="justification"
-          value={formData.justification}
-          id="Resource-form-justification"
-          placeholder="Input justification Here"
-          onChange={(e) => handleFormChange(e)}
-        />
-        <br />
-        <button className="button">Submit</button>
-      </form>
-      <input
-        placeholder="Please type in a single tag only"
-        value={newTag}
-        onChange={(e) => setNewTag(e.target.value.trim())}
-      ></input>
-      <button onClick={() => handleCreateNewTag(newTag)}>Submit new Tag</button>
-      <TagCloudCreateResource
-        setAssignedTags={setAssignedTags}
-        assignedTags={assignedTags}
-      />
-      <h3>Assigned Tags</h3>
-      <section>{allAssignedTagButtons}</section>
+      <h2 className="text-center m-3">Create a Resource</h2>
+      <div className="createResourceForm">
+        {" "}
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="Resource-form-title" className="text-muted fw-bolder">
+            Title
+          </label>
+          <input
+            className="form--input"
+            name="title"
+            value={formData.title}
+            id="Resource-form-title"
+            placeholder="Title"
+            type="text"
+            onChange={(e) => handleFormChange(e)}
+          />
+          <br />
+          <label
+            htmlFor="Resource-form-Description"
+            className="text-muted fw-bolder"
+          >
+            Description
+          </label>
+          <textarea
+            className="form--textArea"
+            name="description"
+            value={formData.description}
+            id="Resource-form-description"
+            placeholder="Input Description"
+            onChange={(e) => handleFormChange(e)}
+          />
+          <br />
+          <br />
+          <label htmlFor="Resource-form-url" className="text-muted fw-bolder">
+            URL
+          </label>
+          <textarea
+            className="form--input"
+            name="url"
+            value={formData.url}
+            id="Resource-form-url"
+            placeholder="Paste URL Here"
+            onChange={(e) => handleFormChange(e)}
+          />
+          <br />
+          <label
+            htmlFor="Resource-form-origin"
+            className="text-muted fw-bolder"
+          >
+            Origin
+          </label>
+          <textarea
+            className="form--input"
+            name="origin"
+            value={formData.origin}
+            id="Resource-form-origin"
+            placeholder="Input Origin Here"
+            onChange={(e) => handleFormChange(e)}
+          />
+          <br />
+          <label
+            htmlFor="Resource-form-content-type"
+            className="text-muted fw-bolder"
+          >
+            Content Type
+          </label>
+          <textarea
+            className="form--input"
+            name="content_type"
+            value={formData.content_type}
+            id="Resource-form-content-type"
+            placeholder="Input content-type Here"
+            onChange={(e) => handleFormChange(e)}
+          />
+          <br />
+          <label
+            htmlFor="Resource-form-recommended-week"
+            className="text-muted fw-bolder"
+          >
+            Recommended Week
+          </label>
+          <textarea
+            className="form--input"
+            name="recommended_week"
+            value={formData.recommended_week}
+            id="Resource-form-recommended-week"
+            placeholder="Input recommended-week Here"
+            onChange={(e) => handleFormChange(e)}
+          />
+          <br />
+          <label
+            htmlFor="Resource-form-evaluation"
+            className="text-muted fw-bolder"
+          >
+            Evaluation
+          </label>
+          <select
+            className="form--dropdown"
+            name="evaluation"
+            defaultValue={"No evaluation selected"}
+            id="Resource-form-evaluation"
+            placeholder="Input evaluation Here"
+            onChange={(e) => handleFormChange(e)}
+          >
+            <option>Select from dropdown</option>{" "}
+            <option>I recommend this resource after having used it</option>
+            <option>
+              I do not recommend this resource after having used it
+            </option>
+            <option>I haven't used this resource but it looks promising</option>
+          </select>
+          <br />
+          <label
+            htmlFor="Resource-form-justification"
+            className="text-muted fw-bolder"
+          >
+            Justification
+          </label>
+          <textarea
+            className="form--textArea"
+            name="justification"
+            value={formData.justification}
+            id="Resource-form-justification"
+            placeholder="Input justification Here"
+            onChange={(e) => handleFormChange(e)}
+          />
+          <br />
+          <TagAssignBlock
+            assignedTags={assignedTags}
+            setAssignedTags={setAssignedTags}
+          />
+          <button className="btn btn-success w-100">Submit</button>
+        </form>
+      </div>
     </>
   );
 }

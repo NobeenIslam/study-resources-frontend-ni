@@ -24,6 +24,53 @@
   }
 }
 
+.createResourceForm {
+  margin: 20px auto;
+  width: 80%;
+  max-width: 1000px;
+  align-items: center;
+  padding: 30px;
+  border-style: solid;
+  border-width: 4px;
+  border-color:  #3299d4;
+  border-radius: 10px;
+}
+
+form { 
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.form--input {
+  border-radius: 5px;
+  border: 1px solid #D5D4D8;
+  text-indent: 5px;
+  width: 100%;
+
+}
+
+.form--dropdown {
+  border-radius: 5px;
+  border: 1px solid #D5D4D8;
+  width: 100%;
+}
+
+.form--textArea {
+  border-radius: 5px;
+  border: 1px solid #D5D4D8;
+  text-indent: 5px;
+  width: 100%;
+  height: 150px;
+}
+
+.tags--container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
 /* To syle router links properly */
 a:link {
   text-decoration: none;
