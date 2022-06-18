@@ -186,7 +186,7 @@ export default function CreateResourcePage(
             assignedTags={assignedTags}
             setAssignedTags={setAssignedTags}
           />
-          <button className="btn btn-success">Submit</button>
+          <button className="btn btn-success w-100">Submit</button>
         </form>
       </div>
     </>

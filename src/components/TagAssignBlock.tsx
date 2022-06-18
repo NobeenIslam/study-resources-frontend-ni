@@ -24,8 +24,10 @@ export function TagAssignBlock({
       key={tagObj.id}
       className="btn btn-warning"
       onClick={() => {
+        //Remove that tag when it is clicked again
         const assignedTagsCopy = [...assignedTags];
         assignedTagsCopy.splice(tagObj.id, 1);
+        console.log(assignedTagsCopy);
         setAssignedTags(assignedTagsCopy);
       }}
     >
