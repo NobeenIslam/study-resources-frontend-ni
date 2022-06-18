@@ -28,6 +28,7 @@ export default function MainPage(props: MainPageProps): JSX.Element {
       setResources(response.data);
     };
     fetchResources();
+    return ()=>{ setResources([])}
   }, [triggerRerender]);
 
   let filteredForSearch;
