@@ -31,7 +31,7 @@ export function VotingBar(props: VotingBarProps): JSX.Element {
     fetchResourceVotes();
   }, [fetchVoteInfoToggle, props.data.resource_id]);
 
-  async function handleClickVote(isUpvote: boolean, buttonClasses: string[]) {
+  async function handleClickVote(isUpvote: boolean) {
     if (props.currentUser.user_id === "not-signed-in") {
       return;
     }
@@ -48,14 +48,14 @@ export function VotingBar(props: VotingBarProps): JSX.Element {
       <button
         className={`btn btn-success`}
         aria-pressed="true"
-        onClick={() => handleClickVote(true, ["active", ""])}
+        onClick={() => handleClickVote(true)}
       >
         👍
       </button>
       <p>({resourceVoteInfo.totalVotes})</p>
       <button
         className={`btn btn-danger`}
-        onClick={() => handleClickVote(false, ["", "active"])}
+        onClick={() => handleClickVote(false)}
       >
         👎
       </button>
