@@ -19,7 +19,7 @@ export default function CreateResourcePage(
 
   useEffect(() => props.setCurrentUser(userData));
 
-  const [formData, setFormData] = useState<ResourceForm>({
+  const blankForm: ResourceForm = {
     title: "",
     description: "",
     url: "",
@@ -30,7 +30,9 @@ export default function CreateResourcePage(
     justification: "",
     tags: [""],
     author_id: userData.user_id,
-  });
+  };
+
+  const [formData, setFormData] = useState<ResourceForm>(blankForm);
 
   const [assignedTags, setAssignedTags] = useState<string[]>([]);
 
@@ -50,7 +52,51 @@ export default function CreateResourcePage(
     event.preventDefault();
     formData["tags"] = assignedTags;
     console.log("This is form data:", formData);
+
+    if (formData["title"] === "") {
+      window.alert(`Please input a Title`);
+      return;
+    }
+
+    if (formData["description"] === "") {
+      window.alert(`Please input a Description`);
+      return;
+    }
+
+    if (formData["url"] === "") {
+      window.alert(`Please input a url`);
+      return;
+    }
+
+    if (formData["origin"] === "") {
+      window.alert(`Please input an Origin`);
+      return;
+    }
+
+    if (formData["content_type"] === "") {
+      window.alert(`Please input a Content Type`);
+      return;
+    }
+
+    if (formData["recommended_week"] === "") {
+      window.alert(`Please input a Recommended Week`);
+      return;
+    }
+
+    if (formData["evaluation"] === "") {
+      window.alert(`Please input an Evaluation`);
+      return;
+    }
+
+    if (formData["justification"] === "") {
+      window.alert(`Please input a Justification`);
+      return;
+    }
+
+    window.alert("You have posted!");
     await axios.post(baseURL + "/resources", formData);
+    setFormData(blankForm);
+    setAssignedTags([]);
   }
 
   return (
@@ -154,7 +200,7 @@ export default function CreateResourcePage(
           <select
             className="form--dropdown"
             name="evaluation"
-            defaultValue={"No evaluation selected"}
+            value={formData.evaluation}
             id="Resource-form-evaluation"
             placeholder="Input evaluation Here"
             onChange={(e) => handleFormChange(e)}
