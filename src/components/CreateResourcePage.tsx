@@ -97,7 +97,6 @@ export default function CreateResourcePage(
     setFormData(blankForm);
     setAssignedTags([]);
     window.alert("You have posted!");
-
   }
 
   return (
