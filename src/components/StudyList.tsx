@@ -10,7 +10,6 @@ interface StudyListProps {
 }
 
 export default function StudyList(props: StudyListProps): JSX.Element {
-  console.log(props.studylist);
   const mapOfResourcesInStudyList = props.studylist.map((item) => (
     <SingleResourceBlock
       key={item.resource_id}
