@@ -51,7 +51,7 @@ export default function CreateResourcePage(
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     formData["tags"] = assignedTags;
-    console.log("This is form data:", formData);
+    //console.log("This is form data:", formData);
 
     if (formData["title"] === "") {
       window.alert(`Please input a Title`);
@@ -93,10 +93,11 @@ export default function CreateResourcePage(
       return;
     }
 
-    window.alert("You have posted!");
     await axios.post(baseURL + "/resources", formData);
     setFormData(blankForm);
     setAssignedTags([]);
+    window.alert("You have posted!");
+
   }
 
   return (

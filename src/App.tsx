@@ -22,7 +22,7 @@ function App(): JSX.Element {
 
   useEffect(() => {
     async function fetchStudyList() {
-      console.log("Fetching study list");
+      //console.log("Fetching study list");
       const studyListRes = await axios.get(
         `${baseURL}/${currentUser.user_id}/studylist`
       );
