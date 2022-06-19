@@ -22,13 +22,27 @@ export function VotingBar(props: VotingBarProps): JSX.Element {
     useState<boolean>(false);
 
   useEffect(() => {
+    const abortCont = new AbortController();
     async function fetchResourceVotes() {
-      const response = await axios.get(
-        `${baseURL}/resources/${props.data.resource_id}/votes`
-      );
-      setResourceVoteInfo(response.data);
+      try {
+        const response = await axios.get(
+          `${baseURL}/resources/${props.data.resource_id}/votes`,
+          { signal: abortCont.signal }
+        );
+        setResourceVoteInfo(response.data);
+      } catch (error) {
+        //as error us unknown, couldn't do property access.
+        type errorType = { code: string; message: string; name: string };
+        const errorMod = error as errorType;
+        if (errorMod.name === "CanceledError") {
+          console.log("Clean up occurred and fetch aborted");
+        }
+      }
     }
     fetchResourceVotes();
+    return () => {
+      abortCont.abort();
+    };
   }, [fetchVoteInfoToggle, props.data.resource_id]);
 
   async function handleClickVote(isUpvote: boolean) {
