@@ -38,7 +38,7 @@ export default function SingleResourceBlock(
             />
           </div>
         </div>
-        <VotingBar data={props.data} />
+        <VotingBar data={props.data} currentUser={props.currentUser} />
       </section>
       <div className="card-footer">
         {" "}
