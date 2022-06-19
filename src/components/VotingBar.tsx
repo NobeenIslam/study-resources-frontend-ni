@@ -20,11 +20,6 @@ export function VotingBar(props: VotingBarProps): JSX.Element {
     useState<ResourceVoteInfoInterface>(initialVoteInfo);
   const [fetchVoteInfoToggle, setFetchVoteInfoToggle] =
     useState<boolean>(false);
-  const [whichButtonActiveClass, setWhichButtonActiveClass] = useState<
-    string[]
-  >(["", ""]);
-
-  console.log(whichButtonActiveClass, props.data.title);
 
   useEffect(() => {
     async function fetchResourceVotes() {
@@ -40,30 +35,26 @@ export function VotingBar(props: VotingBarProps): JSX.Element {
     if (props.currentUser.user_id === "not-signed-in") {
       return;
     }
-    const response = await axios.post(
-      `${baseURL}/resources/${props.data.resource_id}/votes`,
-      {
-        user_id: props.currentUser.user_id,
-        is_upvote: isUpvote,
-      }
-    );
+    await axios.post(`${baseURL}/resources/${props.data.resource_id}/votes`, {
+      user_id: props.currentUser.user_id,
+      is_upvote: isUpvote,
+    });
     setFetchVoteInfoToggle(!fetchVoteInfoToggle);
-    setWhichButtonActiveClass(buttonClasses);
   }
 
   return (
     <section className="d-flex flex-column align-items-center justify-content-evenly ms-3">
       <p className="text-success">({resourceVoteInfo.upVotes})</p>
       <button
-        data-toggle="button"
-        className={`btn btn-success ${whichButtonActiveClass[0]} active`}
+        className={`btn btn-success`}
+        aria-pressed="true"
         onClick={() => handleClickVote(true, ["active", ""])}
       >
         👍
       </button>
       <p>({resourceVoteInfo.totalVotes})</p>
       <button
-        className={`btn btn-danger ${whichButtonActiveClass[1]}`}
+        className={`btn btn-danger`}
         onClick={() => handleClickVote(false, ["", "active"])}
       >
         👎
