@@ -21,13 +21,13 @@ export function TagAssignBlock({
   const allAssignedTagObjects = tagArrayToObject(assignedTags);
   const allAssignedTagButtons = allAssignedTagObjects.map((tagObj) => (
     <button
+      type="button"
       key={tagObj.id}
       className="btn btn-warning"
       onClick={() => {
         //Remove that tag when it is clicked again
         const assignedTagsCopy = [...assignedTags];
         assignedTagsCopy.splice(tagObj.id, 1);
-        console.log(assignedTagsCopy);
         setAssignedTags(assignedTagsCopy);
       }}
     >
@@ -47,6 +47,7 @@ export function TagAssignBlock({
           onChange={(e) => setNewTag(e.target.value.trim())}
         ></input>
         <button
+          type="button"
           className="btn btn-info"
           onClick={() => handleCreateNewTag(newTag)}
         >

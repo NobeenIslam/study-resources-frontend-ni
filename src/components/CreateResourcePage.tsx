@@ -51,7 +51,6 @@ export default function CreateResourcePage(
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     formData["tags"] = assignedTags;
-    //console.log("This is form data:", formData);
 
     if (formData["title"] === "") {
       window.alert(`Please input a Title`);
@@ -232,7 +231,9 @@ export default function CreateResourcePage(
             assignedTags={assignedTags}
             setAssignedTags={setAssignedTags}
           />
-          <button className="btn btn-success w-100">Submit</button>
+          <button type="submit" className="btn btn-success w-100">
+            Submit
+          </button>
         </form>
       </div>
     </>
